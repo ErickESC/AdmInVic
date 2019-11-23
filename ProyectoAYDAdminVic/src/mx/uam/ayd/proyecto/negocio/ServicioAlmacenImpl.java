@@ -6,9 +6,15 @@ package mx.uam.ayd.proyecto.negocio;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
+import com.sun.javafx.collections.MappingChange.Map;
+
+import mx.uam.ayd.proyecto.datos.DAOArticulo;
 import mx.uam.ayd.proyecto.datos.DAOArticuloEnAlmacen;
 import mx.uam.ayd.proyecto.datos.DAOLibro;
+import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 
 /**
@@ -18,10 +24,12 @@ import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 public class ServicioAlmacenImpl implements ServicioAlmacen {
 
 	private DAOArticuloEnAlmacen daoAlmacen;
+	private DAOArticulo daoArticulo;
 	
-	public ServicioAlmacenImpl(DAOArticuloEnAlmacen dao) {
+	public ServicioAlmacenImpl(DAOArticuloEnAlmacen dao, DAOArticulo daoArticulo) {
 		// Creamos conexion al DAO
 		this.daoAlmacen = dao;
+		this.daoArticulo=daoArticulo;
 	}
 	
 	/**
@@ -100,9 +108,9 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	@Override
 	public ArrayList<ArticuloEnAlmacen> dameArticuloEnAlmacen() {
 		
-		System.out.print("hola");
+		ArrayList<ArticuloEnAlmacen> lista=daoAlmacen.recuperaTodos();
 		
-		return null;
+		return lista;
 	}
 
 	/**
@@ -111,11 +119,56 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	 * @return arreglo con ArticuloEnAlmacen
 	 */
 	@Override
-	public ArrayList<ArticuloEnAlmacen> dameArticuloEnAlmacenLapso(Date max, Date min) {
+	public java.util.Map<ArticuloEnAlmacen, String> consultaRezago(Date max, Date min) {
 		
+		double precioDescuento;
 		ArrayList<ArticuloEnAlmacen> lapso=daoAlmacen.recuperaLapso(max, min);
+		ArrayList<Articulo> articulos=null;
+		java.util.Map <ArticuloEnAlmacen, String> descuento=new HashMap <ArticuloEnAlmacen, String>();
+		Calendar fecha= Calendar.getInstance();
 		
-		return lapso;
+		//Llamamos a DAOArticulo para conocer los precios de los articulos requeridos
+		//Llenamos un arreglo de articulos para poder realizar la logica de negocio
+		for(int i=0; i<lapso.size();i++) {
+			
+			articulos.set(i, daoArticulo.recupera(lapso.get(i).getIdArticulo()));
+			
+		}
+		
+		
+		for(int i=0; i<lapso.size();i++) {
+			
+			fecha.setTime(lapso.get(i).getFechaLlegada());
+				
+			int desc=Calendar.MONTH-fecha.MONTH;
+			int anio=Calendar.YEAR-fecha.YEAR;
+			
+			/*
+			 * Logica de negocio que obedece la regla NO-6
+			 */
+			
+			if((anio==0 && desc<5) || (anio==1 && -5>desc)) {		
+				
+				if(desc<0) { desc=desc+(-1); }//considerando si checas en enero y registraste algo en diciembre
+				double porcentaje=desc*0.05;
+				double precio=articulos.get(i).getPrecioVenta();
+				double precioDesc = precio-(precio*porcentaje);
+			    String descuentoHecho=Double.toString(precioDesc);
+				descuento.put(lapso.get(i), descuentoHecho);
+				
+				
+			}
+			
+			double porcentaje=desc*0.4;
+			double precio=articulos.get(i).getPrecioVenta();
+			double precioDesc = precio-(precio*porcentaje);
+		    String descuentoHecho=Double.toString(precioDesc);
+			descuento.put(lapso.get(i), descuentoHecho);
+					
+		}
+		
+		
+		return descuento;
 	}
 
 }

@@ -31,15 +31,14 @@ public class DAOArticuloBD implements DAOArticulo{
 			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
 					
 			// Ejecuta la instruccion
-			statement.execute("INSERT INTO Articulo VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getDescripcion() + "','" + articulo.getImagen() + 
-					                                  "','" + articulo.getPrecioVenta() + "','" + articulo.getPrecioMayoreo() + "','" + articulo.getPrecioAdquisicion() +
-			                                          "','" + articulo.getArticulosTotal() + "')",Statement.RETURN_GENERATED_KEYS);
+			statement.execute("INSERT INTO Articulo VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getDescripcion() + "'," + articulo.getImagen() + 
+					                                  "," + articulo.getPrecioVenta() + "," + articulo.getPrecioMayoreo() + "," + articulo.getPrecioAdquisicion() +
+			                                          "," + articulo.getArticulosTotal() + ")",Statement.RETURN_GENERATED_KEYS);
 			ResultSet rs = statement.getGeneratedKeys(); // Recupera la llave
 			if (rs != null && rs.next()) {
 			    String llave = rs.getString(1);
 			    articulo.setIdArticulo(llave); // Asigna la llave al articulo
-			}
-			
+			}	
 			return true;
 		} catch (SQLException e) {
 			
@@ -69,8 +68,8 @@ public class DAOArticuloBD implements DAOArticulo{
 			
 			if(rs.next())
 			{
-				articulo = new Articulo(rs.getString("idArticulo"), rs.getString("descripcion"), rs.getBytes(2), Integer.parseInt(rs.getString("precioVenta")),
-						                Integer.parseInt(rs.getString("precioMayoreo")), Integer.parseInt(rs.getString("precioAdquisicion")), Integer.parseInt(rs.getString("articulosTotal")));
+				articulo = new Articulo(rs.getString("idArticulo"), rs.getString("descripcion"), rs.getBytes(3), rs.getDouble("precioVenta"),
+						                rs.getDouble("precioMayoreo"), rs.getDouble("precioAdquisicion"), rs.getInt("articulosTotal"));
 			}
 			
 			return articulo;

@@ -70,7 +70,7 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 			
 			if(rs.next())
 			{
-				articulo = new ArticuloEnAlmacen(rs.getString("idArticulo"), rs.getDate("fechaRegistro"), rs.getTimestamp("fechaLlegada"), Integer.parseInt(rs.getString("articulosTotalesEnAlmacen")));
+				articulo = new ArticuloEnAlmacen(rs.getString("idArticulo"), rs.getDate("fechaRegistro"), rs.getTimestamp("fechaLlegada"), rs.getInt("articulosTotalesEnAlmacen"));
 			}
 			
 			return articulo;

@@ -6,8 +6,10 @@ package mx.uam.ayd.proyecto.negocio;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Map;
 
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
+import mx.uam.ayd.proyecto.negocio.dominio.Libro;
 
 /**
  * Modulo con la logica de negocio de Rezago
@@ -57,10 +59,11 @@ public interface ServicioAlmacen {
 	
 	/**
 	 * Permite recuperar los ArticuloEnAlmacen registrados dentro de un lapso
+	 * @return 
 	 * 
 	 * @return arreglo con ArticuloEnAlmacen
 	 */
-	public  ArrayList<ArticuloEnAlmacen> dameArticuloEnAlmacenLapso(Date max, Date min);
+	public  Map <ArticuloEnAlmacen, String> consultaRezago(Date max, Date min);
 	
 	
 	

@@ -26,7 +26,7 @@ public class ManejadorBaseDatos {
 	private static String protocol = "jdbc:derby:";
 	
 	// Nombre de la base de datos
-	private String m_nombreBD = "BasePrueba1";
+	private String m_nombreBD = "BasePrueba2";
 	
 	// La conexion
 	private Connection m_conexion = null;
