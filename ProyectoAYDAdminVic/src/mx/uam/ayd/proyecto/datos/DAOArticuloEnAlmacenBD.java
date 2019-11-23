@@ -151,7 +151,7 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 			while(rs.next())
 			{
 				
-				ArticuloEnAlmacen articulo = new ArticuloEnAlmacen(rs.getString("idArticulo"), rs.getDate("fechaRegistro"), rs.getTimestamp("fechaPartida"), Integer.parseInt(rs.getString("articulosTotalesEnAlmacen")));
+				ArticuloEnAlmacen articulo = new ArticuloEnAlmacen(rs.getString("idArticulo"), rs.getDate("fechaRegistro"), rs.getTimestamp("fechaPartida"), rs.getInt("articulosTotalesEnAlmacen"));
 				articulos.add(articulo);
 			}
 			
@@ -172,8 +172,9 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
 
 			// Recibe los resutados
-			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnAlmacen WHERE fechaRegistro "
-					                            + "BETWEEN '"+ min + "' AND '"+ max +"'");
+			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnAlmacen WHERE articulosTotalesEnAlmacen>0 AND fechaRegistro "
+					                            + "BETWEEN '"+ min + "' AND '"+ max +"' "
+					                            + "ORDER BY articulosTotalesEnAlmacen");
 
 			
 			while(rs.next())
