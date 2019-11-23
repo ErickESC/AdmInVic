@@ -81,7 +81,7 @@ public class pruebas {
 		boolean respuesta;
 		
 		System.out.println("1");
-		respuesta=p.agregaArticulo("mapache", "mapachegordo", contenido, 7.0, 9.0, 9.8, 10);
+		respuesta=p.agregaArticulo("mapache", "mapachegordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
 		
 		System.out.println("2");
@@ -91,6 +91,8 @@ public class pruebas {
 		System.out.println("3");
 		respuesta=p.eliminaArticulo(id);
 		System.out.println(respuesta);
+		
+		
 		
 		
 		
