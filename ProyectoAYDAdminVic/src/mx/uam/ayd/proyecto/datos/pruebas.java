@@ -80,6 +80,8 @@ public class pruebas {
 		
 		boolean respuesta;
 		
+		
+		System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
 		System.out.println("1");
 		respuesta=p.agregaArticulo("mapache", "mapachegordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
