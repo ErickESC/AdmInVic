@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import mx.uam.ayd.proyecto.configuracion.ConfiguracionBD;
 import mx.uam.ayd.proyecto.negocio.dominio.Libro;
 
 /**
@@ -26,7 +27,7 @@ public class DAOLibroBD implements DAOLibro {
 		
 		try {
 			// Crea la instruccion
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
+			Statement statement = ManejadorBaseDatos.getConnection(ConfiguracionBD.PRODUCCION).createStatement();
 					
 			// Ejecuta la instruccion
 			statement.execute("INSERT INTO Libro VALUES (DEFAULT,'"+libro.getNombre()+"','"+libro.getAutor()+"')",Statement.RETURN_GENERATED_KEYS);
@@ -58,7 +59,7 @@ public class DAOLibroBD implements DAOLibro {
 		
 		try{
 			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
+			Statement statement = ManejadorBaseDatos.getConnection(ConfiguracionBD.PRODUCCION).createStatement();
 
 			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM Libro WHERE nombre = '"+nombre+"'");
@@ -88,7 +89,7 @@ public class DAOLibroBD implements DAOLibro {
 	public boolean borra(Libro libro) {
 		try{			
 			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
+			Statement statement = ManejadorBaseDatos.getConnection(ConfiguracionBD.PRODUCCION).createStatement();
 
 			// Recibe los resutados
 			statement.execute("DELETE FROM Libro WHERE nombre = '"+libro.getNombre()+"'");
@@ -114,7 +115,7 @@ public class DAOLibroBD implements DAOLibro {
 		
 		try{
 			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
+			Statement statement = ManejadorBaseDatos.getConnection(ConfiguracionBD.PRODUCCION).createStatement();
 
 			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM Libro");

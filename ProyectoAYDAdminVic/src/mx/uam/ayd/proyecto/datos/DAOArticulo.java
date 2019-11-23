@@ -1,23 +1,16 @@
-/**
- * 
- */
 package mx.uam.ayd.proyecto.datos;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
-import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 
 /**
- * DAO para la entidad Articulo
- * 
- * @author erick
- *
+ * DAOArticulo
  */
 public interface DAOArticulo {
-	
-	/**
-	 * Este metodo permite agregar un articulo al registro de articulos
+
+    /**
+	 * Este metodo permite agregar un articulo a la BD
 	 * 
 	 * @param articulo el articulo a agregar
 	 * @return true si se creo exitosamente, false sino
@@ -25,12 +18,12 @@ public interface DAOArticulo {
 	public boolean crea(Articulo articulo);
 	
 	/**
-	 * Este metodo busca un articulo a partir de su id
+	 * Este metodo busca un articulo a partir de su nombre
 	 * 
-	 * @param id el identificador del articulo a buscar
+	 * @param nombre el nombre del articulo a buscar
 	 * @return una referencia al articulo o null si no se encontro
 	 */
-	public Articulo recupera(String id);
+	public Articulo recupera(String nombre);
 	
 	/**
 	 * Actualiza articulo
@@ -41,7 +34,7 @@ public interface DAOArticulo {
 	public boolean actualiza(Articulo articulo);
 
 	/**
-	 * Retira un articulo del registro de articulos
+	 * Retira un articulo de la libreria
 	 * 
 	 * @param articulo el articulo a retirar
 	 * @return true si se retiro exitosamente, false sino
@@ -51,8 +44,8 @@ public interface DAOArticulo {
 	/**
 	 * Regresa la lista de todos los articulos
 	 * 
-	 * @return un ArrayList con todos los articulos del registro de articulos
+	 * @return un ArrayList con todos los articulos de la libreria
 	 */
-	public ArrayList<Articulo> recuperaTodos();
-	
+    public List<Articulo> recuperaTodos();
+    
 }

@@ -60,11 +60,12 @@ public class VentanaPrincipal extends JFrame {
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJContentPane() {
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		if (jContentPane == null) {
 			jLabel = new JLabel();
-			jLabel.setBounds(new Rectangle(121, 26, 231, 49));
-			jLabel.setFont(new Font("Arial Black", Font.BOLD, 24));
-			jLabel.setText("Libreria Virtual");
+			jLabel.setBounds(new Rectangle(132, 26, 231, 49));
+			jLabel.setFont(new Font("Arial Black", Font.BOLD, 30));
+			jLabel.setText("AdmInVic");
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
@@ -87,7 +88,7 @@ public class VentanaPrincipal extends JFrame {
 		if (jButtonAgregarLibro == null) {
 			jButtonAgregarLibro = new JButton();
 			jButtonAgregarLibro.setBounds(new Rectangle(30, 91, 180, 31));
-			jButtonAgregarLibro.setText("Agregar Libro");
+			jButtonAgregarLibro.setText("Registar Venta - H3");
 			jButtonAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Invoca al control principal
@@ -136,6 +137,12 @@ public class VentanaPrincipal extends JFrame {
 			jButtonEliminarTitulo = new JButton();
 			jButtonEliminarTitulo.setBounds(new Rectangle(240, 135, 166, 31));
 			jButtonEliminarTitulo.setText("Eliminar Titulo");
+			jButtonEliminarTitulo.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					// Invoca al control principal
+					System.out.println("Pulsando eliminar");
+				}
+			});
 		}
 		return jButtonEliminarTitulo;
 	}

@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnStock;
 
 /**
@@ -16,6 +15,22 @@ import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnStock;
  *
  */
 public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
+
+	private String nombreBD;
+	private Statement statement = null;
+
+	public DAOArticuloEnStockBD (String baseDeDatos ) {
+		nombreBD = baseDeDatos;
+		try {
+			statement = ManejadorBaseDatos.getConnection(nombreBD).createStatement();
+		} catch (DatabaseException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Este metodo permite agregar un articulo al registro de articulos en el stock
@@ -25,23 +40,21 @@ public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
 	 */
 	@Override
 	public boolean crea(ArticuloEnStock articulo) {
-		try {
-			// Crea la instruccion
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-					
+		try {		
 			// Ejecuta la instruccion
-			statement.execute("INSERT INTO ArticuloEnStock VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getFechaLlegada() + 
-					                                  "','" + articulo.getArticulosTotalesEnStock() + "')",Statement.RETURN_GENERATED_KEYS);
-			
+			statement.execute("INSERT INTO ArticuloEnStock VALUES ('" 
+				+ articulo.getIdArticulo() + "','" 
+				+ articulo.getFechaLlegada() + "','" 
+				+ articulo.getArticulosTotalesEnStock() + "')"
+				,Statement.RETURN_GENERATED_KEYS
+			);
 			ResultSet rs = statement.getGeneratedKeys(); // Recupera la llave
 			if (rs != null && rs.next()) {
 			    String llave = rs.getString(1);
 			    articulo.setIdArticulo(llave); // Asigna la llave al articulo
 			}
-			
 			return true;
 		} catch (SQLException e) {
-			
 			// Cacha excepcion
 			e.printStackTrace();
 			return false;
@@ -59,19 +72,17 @@ public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
 		ArticuloEnStock articulo=null;
         
         try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
 			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnStock WHERE idArticulo = '" + id + "'");
 			
-			if(rs.next())
-			{
-				articulo = new ArticuloEnStock(rs.getString("idArticulo"), rs.getDate("fechaLlegada"), Integer.parseInt(rs.getString("articulosTotalesEnStock")));
+			if(rs.next()) {
+				articulo = new ArticuloEnStock(
+					rs.getString("idArticulo"),
+					rs.getDate("fechaLlegada"),
+					Integer.parseInt(rs.getString("articulosTotalesEnStock"))
+				);
 			}
-			
 			return articulo;
-			
 		}catch(SQLException e){
 			e.printStackTrace();
 			return null;
@@ -87,17 +98,13 @@ public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
 	@Override
 	public boolean actualiza(ArticuloEnStock articulo) {
 	       try{
-				
-				Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
 				// Recibe los resutados
-				ResultSet rs = statement.executeQuery("Update ArticuloEnStock Set "
-						+ "                               fechaLlegada ='" + articulo.getFechaLlegada() +
-						                              "', articulosTotalesEnStock=" + articulo.getArticulosTotalesEnStock() +
-						                              "' Where idArticulo='"+articulo.getIdArticulo()+"'");
-				
+				statement.executeQuery("Update ArticuloEnStock Set"
+					+ " fechaLlegada ='" + articulo.getFechaLlegada()
+					+ "', articulosTotalesEnStock=" + articulo.getArticulosTotalesEnStock() 
+					+ "' Where idArticulo='"+articulo.getIdArticulo()+"'"
+				);
 				return true;
-
 			}catch(SQLException e){
 				e.printStackTrace();
 				return false;
@@ -112,14 +119,10 @@ public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
 	 */
 	@Override
 	public boolean borra(ArticuloEnStock articulo) {
-        try{			
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
+        try{
 			// Recibe los resutados
 			statement.execute("DELETE FROM ArticuloEnStock WHERE idArticulo = '"+articulo.getIdArticulo()+"'");
 			return true;
-
 		}catch(SQLException e){
 			e.printStackTrace();
 			return false;
@@ -136,25 +139,15 @@ public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
 		ArrayList <ArticuloEnStock> articulos = new ArrayList<ArticuloEnStock>();
 		
 		try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
 			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnStock");
-
-			
-			while(rs.next())
-			{
-				
+			while(rs.next()) {
 				ArticuloEnStock articulo = new ArticuloEnStock(rs.getString("idArticulo"), rs.getDate("fechaLlegada"), Integer.parseInt(rs.getString("articulosTotalesEnAlmacen")));
 				articulos.add(articulo);
 			}
-			
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		
 		return articulos;
 	}
-
 }

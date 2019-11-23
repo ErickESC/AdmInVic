@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Aplicacion",
+            "request": "launch",
+            "mainClass": "mx.uam.ayd.proyecto.Aplicacion",
+            "projectName": "ProyectoAYDAdminVic"
+        }
+    ]
+}

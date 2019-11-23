@@ -1,142 +1,80 @@
-/**
- * 
- */
 package mx.uam.ayd.proyecto.negocio.dominio;
 
 /**
- * @author erick
- *
+ * Articulo
  */
 public class Articulo {
-	
-	private String idArticulo;
-	private String descripcion;
-	private byte[] imagen;
-	private double precioVenta;
-	private double precioMayoreo;
-	private double precioAdquisicion;
-	private int articulosTotal;
-	
-	/*
-	 * Constructor
-	 * 
-	 */
-	
-	public Articulo( String idArticulo, String descripcion, byte[] imagen, float precioVenta, float precioMayoreo, float precioAdquisicion, int articulosTotal) {
-		
-		this.idArticulo=idArticulo;
-		this.descripcion=descripcion;
-		this.imagen=imagen;
-		this.precioVenta=precioVenta;
-		this.precioMayoreo=precioMayoreo;
-		this.precioAdquisicion=precioAdquisicion;
-		this.articulosTotal=articulosTotal;
-		
-	}
-	
-	/*
-	 * set's y get's
-	 */
-	
-	//ARTICULO
-	
-	public void setIdArticulo(String newIdArticulo) {
-		
-		this.idArticulo=newIdArticulo;
-		
-	}
-	
-	public String getIdArticulo() {
-		
-		return this.idArticulo;
-		
-	}
-	
-	//DESCRIPCION
-	
-	public void setDescripcion(String newDescripcion) {
-		
-		this.descripcion=newDescripcion;
-		
-	}
-	
-	public String getDescripcion() {
-		
-		return this.descripcion;
-		
-	}
-	
-	//IMAGEN
-	
-	public void setImagen(byte[] newImagen) {
-		
-		this.imagen=newImagen;
-		
-	}
-	
-	public byte[] getImagen() {
-		
-		return this.imagen;
-		
-	}
-	
-	//PRECIO_VENTA
-	
-	public void setPrecioVenta(double newPrecioVenta) {
-		
-		this.precioVenta=newPrecioVenta;
-		
-	}
-	
-	public double getPrecioVenta() {
-		
-		return this.precioVenta;
-		
-	}
-	
-	//PRECIO_MAYOREO
-	
-	
-	public void setPrecioMayoreo(double newPrecioMayoreo) {
-		
-		this.precioMayoreo=newPrecioMayoreo;
-		
-	}
-	
-	public double getPrecioMayoreo() {
-		
-		return this.precioMayoreo;
-		
-	}
-	
-	//PRECIO_ADQUISICION
-	
-	
-	public void setPrecioAdquisicion(double newPrecioAdquisicion) {
-		
-		this.precioAdquisicion=newPrecioAdquisicion;
-		
-	}
-	
-	public double getPrecioAdquisicion() {
-		
-		return this.precioAdquisicion;
-		
-	}
-	
-	//ARTICULOS_TOTAL
-	
-	
-	public void setArticulosTotal(int newArticulosTotal) {
-		
-		this.articulosTotal=newArticulosTotal;
-		
-	}
-	
-	public int getArticulosTotal() {
-		
-		return this.articulosTotal;
-		
-	}
+
+    private String idArticulo;
+    private String descripcion;
+    private byte[] imagen;
+    private float precioVenta;
+    private float precioMayoreo;
+    private float precioAdquicicion;
+    private int articulosTotales;
+
+    public String getIdArticulo() {
+        return idArticulo;
+    }
+
+    public void setIdArticulo(String idArticulo) {
+        this.idArticulo = idArticulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] img) {
+        this.imagen = img;
+    }
+
+    public float getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(float precioVenta) {
+        this.precioVenta = precioVenta;
+    }
+
+    public float getPrecioMayoreo() {
+        return precioMayoreo;
+    }
+
+    public void setPrecioMayoreo(float precioMayoreo) {
+        this.precioMayoreo = precioMayoreo;
+    }
+
+    public float getPrecioAdquicicion() {
+        return precioAdquicicion;
+    }
+
+    public void setPrecioAdquicicion(float precioAdquicicion) {
+        this.precioAdquicicion = precioAdquicicion;
+    }
+
+    public int getArticulosTotales() {
+        return articulosTotales;
+    }
+
+    public void setArticulosTotales(int articulosTotales) {
+        this.articulosTotales = articulosTotales;
+    }
+
+    // ELIMINAR al finalizar la implementacion
+    @Override
+    public String toString() {
+        return "Articulo [articulosTotales=" + articulosTotales + ", descripcion="
+                + descripcion + ", idArticulo=" + idArticulo + ", img=" + imagen + ", precioAdquicicion="
+                + precioAdquicicion + ", precioMayoreo=" + precioMayoreo + ", precioVenta=" + precioVenta + "]";
+    }
 
 }

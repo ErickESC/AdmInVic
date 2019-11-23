@@ -1,0 +1,8 @@
+*.class
+*.log
+derby.log
+/.metadata/
+BaseDePruebas/**
+BaseDeDatos/**
+ProyectoAYDAdminVic/BaseDeDatos/**
+ProyectoAYDAdminVic/BaseDePruebas/**

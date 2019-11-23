@@ -24,21 +24,19 @@ public class ManejadorBaseDatos {
 	private static String framework = "embedded";
 	private static String driver = "org.apache.derby.jdbc.EmbeddedDriver";
 	private static String protocol = "jdbc:derby:";
-	
-	// Nombre de la base de datos
-	private String m_nombreBD = "BaseDeDatos";
-	
+		
 	// La conexion
 	private Connection m_conexion = null;
 
 	static {
-		PropertyConfigurator.configure("res/log4j_config.properties");
+		PropertyConfigurator.configure("ProyectoAYDAdminVic/res/log4j_config.properties");
 	}
 	
 	/**
 	 * Este manejador implementa el patron Singleton, por ello el constructor es privado
+	 * @param nombreBD nombre de la base de datos
 	 */
-	private ManejadorBaseDatos() throws DatabaseException
+	private ManejadorBaseDatos(String nombreBD) throws DatabaseException
 	{
 
 		try
@@ -59,7 +57,7 @@ public class ManejadorBaseDatos {
 	           la base de datos se crea bajo el directorio actual. Para borrarla,
 	           basta borrar el directorio que se creo.
 	         */
-	        m_conexion = DriverManager.getConnection(protocol + m_nombreBD+ ";create=true", props);
+	        m_conexion = DriverManager.getConnection(protocol + nombreBD+ ";create=true", props);
 	
 	        // AutoCommit = true para que los cambios se repercutan inmediatamente.
 	        m_conexion.setAutoCommit(true);
@@ -79,13 +77,15 @@ public class ManejadorBaseDatos {
 	 * del Manejador de la Base de Datos. Si aun no ha sido creado, se instancia. Esto
 	 * solo puede ocurrir una vez, por lo tanto esto representa el patron singleton.
 	 * 
+	 * @param produccion Nombre de la base de datos
+	 * 
 	 * @return
 	 */
-	public static Connection getConnection() throws DatabaseException
+	public static Connection getConnection(String nombre) throws DatabaseException
 	{
 		if (m_manejador == null)
 		{
-			m_manejador = new ManejadorBaseDatos();
+			m_manejador = new ManejadorBaseDatos(nombre);
 			log.info("El manejador de la base de datos ha sido creado");
 		}
 		

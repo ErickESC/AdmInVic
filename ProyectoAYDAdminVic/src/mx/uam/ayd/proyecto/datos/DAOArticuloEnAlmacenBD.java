@@ -18,6 +18,22 @@ import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 
 public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 
+	private String nombreBD;
+	private Statement statement = null;
+
+	public DAOArticuloEnAlmacenBD (String baseDeDatos ) {
+		nombreBD = baseDeDatos;
+		try {
+			statement = ManejadorBaseDatos.getConnection(nombreBD).createStatement();
+		} catch (DatabaseException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Este metodo permite agregar un articulo al registro de articulos en el almacen
 	 * 
@@ -26,10 +42,7 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 	 */
 	@Override
 	public boolean crea(ArticuloEnAlmacen articulo) {
-		try {
-			// Crea la instruccion
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-					
+		try {					
 			// Ejecuta la instruccion
 			statement.execute("INSERT INTO ArticuloEnAlmacen VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getFechaLlegada() + "','" + articulo.getFechaPartida() + 
 					                                  "','" + articulo.getArticulosTotalesEnAlmacen() + "')",Statement.RETURN_GENERATED_KEYS);
@@ -62,9 +75,6 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 		ArticuloEnAlmacen articulo=null;
         
         try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
 			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnAlmacen WHERE idArticulo = '" + id + "'");
 			
@@ -90,9 +100,6 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 	@Override
 	public boolean actualiza(ArticuloEnAlmacen articulo) {
 	       try{
-				
-				Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
 				// Recibe los resutados
 				ResultSet rs = statement.executeQuery("Update ArticuloEnAlmacen Set "
 						+ "                               fechaRegistro ='" + articulo.getFechaLlegada() +
@@ -116,11 +123,7 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 	 */
 	@Override
 	public boolean borra(ArticuloEnAlmacen articulo) {
-		try{			
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
-			// Recibe los resutados
+		try{
 			statement.execute("DELETE FROM ArticuloEnAlmacen WHERE idArticulo = '"+articulo.getIdArticulo()+"'");
 			return true;
 
@@ -141,10 +144,6 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 		ArrayList <ArticuloEnAlmacen> articulos = new ArrayList<ArticuloEnAlmacen>();
 		
 		try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
-			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnAlmacen");
 
 			
@@ -168,10 +167,6 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 		ArrayList <ArticuloEnAlmacen> articulos = new ArrayList<ArticuloEnAlmacen>();
 		
 		try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
-			// Recibe los resutados
 			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnAlmacen WHERE fechaRegistro "
 					                            + "BETWEEN '"+ min + "' AND '"+ max +"'");
 

@@ -4,169 +4,156 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 
 /**
- * 
- * Implementacion de DAOArticulo que se conecta con una base de datos relacional
- * 
- * @author Erick
- *
+ * DAOArticuloDB
  */
+public class DAOArticuloBD implements DAOArticulo {
 
-public class DAOArticuloBD implements DAOArticulo{
+	private String nombreBD;
+	private Statement statement = null;
 
 	/**
-	 * Este metodo permite agregar un articulo al registro de articulos
-	 * 
-	 * @param articulo el articulo a agregar
-	 * @return true si se creo exitosamente, false sino
+	 * Constructor del DAO 
+	 * @param baseDeDatos Es el nombre de la base de datos a la que deseamos conectarnos
 	 */
-	@Override
-	public boolean crea(Articulo articulo) {
-		
+	public DAOArticuloBD (String baseDeDatos ) {
+		nombreBD = baseDeDatos;
 		try {
-			// Crea la instruccion
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-					
-			// Ejecuta la instruccion
-			statement.execute("INSERT INTO Articulo VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getDescripcion() + "','" + articulo.getImagen() + 
-					                                  "','" + articulo.getPrecioVenta() + "','" + articulo.getPrecioMayoreo() + "','" + articulo.getPrecioAdquisicion() +
-			                                          "','" + articulo.getArticulosTotal() + "')",Statement.RETURN_GENERATED_KEYS);
-			ResultSet rs = statement.getGeneratedKeys(); // Recupera la llave
-			if (rs != null && rs.next()) {
-			    String llave = rs.getString(1);
-			    articulo.setIdArticulo(llave); // Asigna la llave al articulo
-			}
-			
-			return true;
-		} catch (SQLException e) {
-			
-			// Cacha excepcion
+			statement = ManejadorBaseDatos.getConnection(nombreBD).createStatement();
+		} catch (DatabaseException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
-			return false;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 	}
 
-	/**
-	 * Este metodo busca un articulo a partir de su id
-	 * 
-	 * @param id el identificador del articulo a buscar
-	 * @return una referencia al articulo o null si no se encontro
+    /**
+	 * Metodo para insertar un nuevo Articulo a la Base de datos
+	 * @param articulo que deseamos insertar
+	 * @return true si se creo exitosamente, false sino
 	 */
-	@Override
+	public boolean crea(Articulo articulo) {
+		try {
+			// Crea la instruccion
+			String sql = "INSERT INTO Articulo VALUES (" +
+				"'"+articulo.getIdArticulo()+"',"+ 
+				"'"+articulo.getDescripcion()+"',"+
+				articulo.getImagen()+","+
+				articulo.getPrecioVenta()+","+
+				articulo.getPrecioMayoreo()+","+
+				articulo.getPrecioAdquicicion()+","+
+				articulo.getArticulosTotales()+")";
+					
+            // Ejecuta la instruccion
+			statement.execute(sql);
+			return true;
+		} catch (SQLException e) {			
+			// Cacha excepcion
+			e.printStackTrace();
+			return false;
+        }
+	}
+	
+	/**
+	 * Este metodo extrae el registro con el identicador que se le pase por parametro 
+	 * @param id identificador del Articulo
+	 * @return una referencia al Articulo o null si no se encontro
+	 */
 	public Articulo recupera(String id) {
-		
-        Articulo articulo=null;
-        
-        try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
+		Articulo articulo = null;
+		try{
 			// Recibe los resutados
-			ResultSet rs = statement.executeQuery("SELECT * FROM Articulo WHERE idArticulo = '" + id + "'");
-			
+			ResultSet rs = statement.executeQuery("SELECT * FROM Articulo WHERE idArticulo = '"+id+"'");
 			if(rs.next())
 			{
-				articulo = new Articulo(rs.getString("idArticulo"), rs.getString("descripcion"), rs.getBytes(2), Integer.parseInt(rs.getString("precioVenta")),
-						                Integer.parseInt(rs.getString("precioMayoreo")), Integer.parseInt(rs.getString("precioAdquisicion")), Integer.parseInt(rs.getString("articulosTotal")));
-			}
-			
+				articulo = new Articulo();
+				articulo.setIdArticulo(rs.getString("idArticulo"));
+				articulo.setDescripcion(rs.getString("descripcion"));
+				articulo.setImagen(rs.getBytes("imagen"));
+				articulo.setPrecioVenta(rs.getFloat("precioVenta"));
+				articulo.setPrecioMayoreo(rs.getFloat("precioMayoreo"));
+				articulo.setPrecioAdquicicion(rs.getFloat("precioAdquisicion"));
+				articulo.setArticulosTotales(rs.getInt("articulosTotal"));
+			}			
 			return articulo;
 		}catch(SQLException e){
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-	/**
-	 * Actualiza articulo
-	 * 
-	 * @param articulo
-	 * @return true si se actualizo correctamente, false si no
-	 */
-	@Override
-	public boolean actualiza(Articulo articulo) {
 		
-	       try{
-				
-				Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
-				// Recibe los resutados
-				ResultSet rs = statement.executeQuery("Update Articulo Set "
-						+ "                               descripcion ='" + articulo.getDescripcion() +
-						                              "', imagen='" + articulo.getImagen() +
-						                              "', precioVenta=" + articulo.getPrecioVenta() +
-						                              "', precioAdquisicion=" + articulo.getPrecioAdquisicion() +
-						                              "', precioMayoreo=" + articulo.getPrecioMayoreo() +
-						                              "', articulosTotal=" + articulo.getPrecioMayoreo() +
-						                              "' Where idArticulo='"+articulo.getIdArticulo()+"'");
-				
-				return true;
-
-			}catch(SQLException e){
-				e.printStackTrace();
-				return false;
-			}
-
 	}
 	
 	/**
-	 * Retira un articulo del registro de articulos
-	 * 
-	 * @param articulo el articulo a retirar
+	 * Este metodo elimana el Articulo que resive por parametro de la base de datos
+	 * @param articulo el Articulo que deseamos elimar de la base de datos
 	 * @return true si se retiro exitosamente, false sino
 	 */
-	@Override
 	public boolean borra(Articulo articulo) {
-		try{			
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
+        try{
 			// Recibe los resutados
 			statement.execute("DELETE FROM Articulo WHERE idArticulo = '"+articulo.getIdArticulo()+"'");
 			return true;
-
 		}catch(SQLException e){
 			e.printStackTrace();
 			return false;
-		}
+        }
 	}
 
 	/**
-	 * Regresa la lista de todos los articulos
-	 * 
-	 * @return un ArrayList con todos los articulos del registro de articulos
+	 * Este metodo extrae todos Articulos de la base de datos
+	 * @return un ArrayList con todos los Articulos
 	 */
-	@Override
-	public ArrayList<Articulo> recuperaTodos() {
-		
-		ArrayList <Articulo> articulos = new ArrayList<Articulo>();
-		
-		
+	public List<Articulo> recuperaTodos() {
+		List<Articulo> articulos = new ArrayList<Articulo>();	
 		try{
-			
-			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
-
 			// Recibe los resutados
-			ResultSet rs = statement.executeQuery("SELECT * FROM Articulo");
-
-			
-			while(rs.next())
-			{
-				
-				Articulo articulo = new Articulo(rs.getString("idArticulo"), rs.getString("descripcion"), rs.getBytes(2), Integer.parseInt(rs.getString("precioVenta")),
-		                Integer.parseInt(rs.getString("precioMayoreo")), Integer.parseInt(rs.getString("precioAdquisicion")), Integer.parseInt(rs.getString("articulosTotal")));
-				
+			ResultSet rs = statement.executeQuery("SELECT * FROM Articulo");			
+			while(rs.next()) {
+				Articulo articulo = new Articulo();
+				articulo.setIdArticulo(rs.getString("idArticulo"));
+				articulo.setDescripcion(rs.getString("descripcion"));
+				articulo.setImagen(rs.getBytes("imagen"));
+				articulo.setPrecioVenta(rs.getFloat("precioVenta"));
+				articulo.setPrecioMayoreo(rs.getFloat("precioMayoreo"));
+				articulo.setPrecioAdquicicion(rs.getFloat("precioAdquisicion"));
+				articulo.setArticulosTotales(rs.getInt("articulosTotal"));
 				articulos.add(articulo);
 			}
 			
 		}catch(SQLException e){
 			e.printStackTrace();
-		}
-		
+		}		
 		return articulos;
+	}	
+	
+	/**
+	 * Este metodo actualiza el Artculo que se pasa por parametro dentro de base de datos
+	 * @param articulo el Articulo con la información que deseamos actualizar
+	 * @return true si se retiro exitosamente, false sino
+	 */
+	public boolean actualiza(Articulo articulo) {
+		try{
+			// Recibe los resutados
+			String sql = "UPDATE Articulo SET "
+				+ "descripcion = '"+articulo.getDescripcion()
+				+ "', imagen = "+ articulo.getImagen()
+				+ ", precioVenta = "+ articulo.getPrecioVenta()
+				+ ", precioMayoreo = " + articulo.getPrecioMayoreo()
+				+ ", precioAdquisicion = " + articulo.getPrecioAdquicicion()
+				+", articulosTotal = " + articulo.getArticulosTotales()+
+				" WHERE idArticulo = '"+articulo.getIdArticulo()+"'";
+			statement.execute(sql);
+			return true;
+		}catch(SQLException e){
+			e.printStackTrace();
+			return false;
+        }
 	}
-
+    
 }
