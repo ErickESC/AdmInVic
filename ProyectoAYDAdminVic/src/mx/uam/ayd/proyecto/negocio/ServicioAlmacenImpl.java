@@ -100,6 +100,7 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	@Override
 	public ArrayList<ArticuloEnAlmacen> dameArticuloEnAlmacen() {
 		
+		System.out.print("hola");
 		
 		return null;
 	}
