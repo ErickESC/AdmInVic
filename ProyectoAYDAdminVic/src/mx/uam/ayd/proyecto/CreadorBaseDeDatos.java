@@ -31,11 +31,18 @@ public class CreadorBaseDeDatos {
 		try
 	    {
 			log.info("Creando base de datos");
-		
+			
 			Connection connection = ManejadorBaseDatos.getConnection();
 	
 			Statement statement = connection.createStatement();
 			
+			/*
+			log.info("destruyendo todo");
+			
+			statement.execute("MySQL\n" + 
+					"DROP TABLE IF EXISTS usuario, Articulo, ArticuloEnAlmacen, ArticuloEnStock, ArticuloEnVenta, Venta");
+			*/
+			///*
 			log.info("Creando tabla Usuario");                
 	
 	        statement.execute("CREATE TABLE usuario(" +
@@ -88,7 +95,7 @@ public class CreadorBaseDeDatos {
 	    			"numeroCaja INTEGER, " +
 	            	"PRIMARY KEY(idVenta, idArticulo), " +
 	        		"FOREIGN KEY (idArticulo) REFERENCES ArticuloEnVenta(idArticulo))");
-	        
+	        //*/
 	
 	        ManejadorBaseDatos.shutdown();
 	    }

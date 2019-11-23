@@ -22,7 +22,7 @@ public class Articulo {
 	 * 
 	 */
 	
-	public Articulo( String idArticulo, String descripcion, byte[] imagen, float precioVenta, float precioMayoreo, float precioAdquisicion, int articulosTotal) {
+	public Articulo( String idArticulo, String descripcion, byte[] imagen, double precioVenta, double precioMayoreo, double precioAdquisicion, int articulosTotal) {
 		
 		this.idArticulo=idArticulo;
 		this.descripcion=descripcion;

@@ -31,7 +31,7 @@ public class DAOArticuloBD implements DAOArticulo{
 			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
 					
 			// Ejecuta la instruccion
-			statement.execute("INSERT INTO Libro VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getDescripcion() + "','" + articulo.getImagen() + 
+			statement.execute("INSERT INTO Articulo VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getDescripcion() + "','" + articulo.getImagen() + 
 					                                  "','" + articulo.getPrecioVenta() + "','" + articulo.getPrecioMayoreo() + "','" + articulo.getPrecioAdquisicion() +
 			                                          "','" + articulo.getArticulosTotal() + "')",Statement.RETURN_GENERATED_KEYS);
 			ResultSet rs = statement.getGeneratedKeys(); // Recupera la llave

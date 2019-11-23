@@ -50,8 +50,9 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 		if(daoAlmacen.recupera(id) != null) 
 			return false;
 		
-		
-		return false;
+		ArticuloEnAlmacen articulo=new ArticuloEnAlmacen(id, fechaRegistro, fechaPartida, articulosTotales);
+		daoAlmacen.crea(articulo);
+		return true;
 	}
 
 	/**
@@ -62,7 +63,13 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	 */
 	@Override
 	public boolean eliminaArticuloEnAlmacen(String id) {
-		// TODO Auto-generated method stub
+		
+		Date k = null;
+		Timestamp t = null;
+		ArticuloEnAlmacen articulo=new ArticuloEnAlmacen(id, k, t, 1);
+		if(daoAlmacen.borra(articulo) == true)
+			return true;
+		
 		return false;
 	}
 
