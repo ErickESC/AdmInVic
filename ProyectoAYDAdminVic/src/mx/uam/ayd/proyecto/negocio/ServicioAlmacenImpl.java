@@ -101,7 +101,6 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	public ArrayList<ArticuloEnAlmacen> dameArticuloEnAlmacen() {
 		
 		
-		
 		return null;
 	}
 
