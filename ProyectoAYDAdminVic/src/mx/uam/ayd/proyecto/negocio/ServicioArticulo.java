@@ -28,7 +28,7 @@ public interface ServicioArticulo {
 	 * @param id
 	 * @return true si se agrego correctamente, false si no
 	 */
-	public boolean agregaArticulo(String id , Date fechaRegistro, Timestamp fechaPartida, int articulosTotales); 
+	public boolean agregaArticulo(String id, String descripcion , byte[] imagen,double PV ,double PM, double PA,int articulosTotales); 
 	
 	/**
 	 * Permite eliminar un Articulo
@@ -44,7 +44,7 @@ public interface ServicioArticulo {
 	 * @param id
 	 * @return true si se actualizo correctamente, false si no
 	 */
-	public boolean atualizaArticulo(String id, Date fechaRegistro, Timestamp fechaPartida, int articulosTotales); 
+	public boolean realizaDescuentos(String id, String descripcion , byte[] imagen,double PV ,double PM, double PA,int articulosTotales); 
 	
 	/**
 	 * Permite recuperar los Articulo

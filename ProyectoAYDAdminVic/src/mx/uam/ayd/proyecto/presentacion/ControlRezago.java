@@ -1,12 +1,15 @@
 package mx.uam.ayd.proyecto.presentacion;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import mx.uam.ayd.proyecto.negocio.ServicioAlmacen;
 import mx.uam.ayd.proyecto.negocio.ServicioArticulo;
 import mx.uam.ayd.proyecto.negocio.ServicioLibro;
+import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 /*
  * @author Erick
  * 
@@ -44,7 +47,27 @@ public class ControlRezago {
 		
 	}
 	
-	
+	public void GeneraDescuentos(HashMap <ArticuloEnAlmacen, String> listaAplicables) {
+		
+		ArrayList<Articulo> listaAplicados= new ArrayList<Articulo>();
+		
+		Iterator it = listaAplicables.keySet().iterator();
+		int i=0;
+		while(it.hasNext()){
+		  ArticuloEnAlmacen key = (ArticuloEnAlmacen) it.next();
+		  listaAplicados.set(i, servicioArticulo.buscaArticulo(key.getIdArticulo()));
+		  listaAplicados.get(i).setPrecioVenta(Integer.parseInt(listaAplicables.get(key)));
+		  servicioArticulo.realizaDescuentos(listaAplicados.get(i).getIdArticulo(), 
+				                             listaAplicados.get(i).getDescripcion(), 
+				                             listaAplicados.get(i).getImagen(), 
+				                             listaAplicados.get(i).getPrecioVenta(), 
+				                             listaAplicados.get(i).getPrecioMayoreo(), 
+				                             listaAplicados.get(i).getPrecioAdquisicion(), 
+				                             listaAplicados.get(i).getArticulosTotal());
+		  i++;
+		}
+		
+	}
 	
 
 }

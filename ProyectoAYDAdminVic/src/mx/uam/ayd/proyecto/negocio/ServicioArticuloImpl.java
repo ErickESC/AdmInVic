@@ -55,11 +55,8 @@ public class ServicioArticuloImpl {
 	 * @return true si se elimino correctamente, false si no
 	 */
 	public boolean eliminaArticulo(String id) {
-		
-		String s="concha";
-		byte[] img = s.getBytes();
 
-		Articulo articulo=new Articulo(id, "",img, 4.4,5.5,9.9, 1);
+		Articulo articulo=new Articulo(id, "",null, 4.4,5.5,9.9, 1);
 		if(dao.borra(articulo) == true)
 			return true;
 		
@@ -72,10 +69,11 @@ public class ServicioArticuloImpl {
 	 * @param id
 	 * @return true si se actualizo correctamente, false si no
 	 */
-	public boolean atualizaArticulo(String id, Date fechaRegistro, Timestamp fechaPartida, int articulosTotales){
+	public boolean realizaDescuentos(String id, String descripcion , byte[] imagen,double PV ,double PM, double PA,int articulosTotales){
 		
-		
-		return false;
+		Articulo articulo=new Articulo(id,  descripcion ,  imagen, PV , PM,  PA, articulosTotales);
+		return dao.actualiza(articulo);
+
 	}
 	
 	/**
@@ -85,8 +83,7 @@ public class ServicioArticuloImpl {
 	 */
 	public  ArrayList<Articulo> dameArticulo(){
 		
-		
-		return null;
+		return dao.recuperaTodos();
 	}
 
 }
