@@ -42,7 +42,7 @@ public class ControlPrincipal {
 		
 	}
 	
-	public void prubea() {
+	public void Rezago() {
 		
 		controlRezago.inicia();
 		

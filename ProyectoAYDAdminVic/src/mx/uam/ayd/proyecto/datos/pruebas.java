@@ -10,15 +10,63 @@ import java.util.ArrayList;
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+//import java.util.Date;
+
 public class pruebas {
 	
 	private DAOArticulo dao;
+	private DAOArticuloEnAlmacen daoAlmacen;
 	
-	public pruebas(DAOArticulo dao) {
+	public pruebas(DAOArticulo dao,DAOArticuloEnAlmacen daoAlmacen) {
 		// Creamos conexion al DAO
 		this.dao = dao;
+		this.daoAlmacen=daoAlmacen;
+	}
+	/*
+	 * 
+	 * Prueba de DAOAlmacen
+	 * 
+	 * 
+	 * 
+	 */
+	
+	public ArticuloEnAlmacen buscaArticuloEnAlmacen(String id) {
+		
+		return daoAlmacen.recupera(id);
+		
 	}
 	
+	public boolean agregaArticuloEnAlmacen(String id, Date fechaRegistro, Timestamp fechaPartida, int articulosTotales) {
+		
+		// Regla de negocio: RN-01 no puede haber dos articulos con el mismo nombre debe agregarse a cantidad
+		if(daoAlmacen.recupera(id) != null) 
+			return false;
+		
+		ArticuloEnAlmacen articulo=new ArticuloEnAlmacen(id, fechaRegistro, fechaPartida, articulosTotales);
+		daoAlmacen.crea(articulo);
+		return true;
+	}
+	
+	public boolean eliminaArticuloEnAlmacen(String id) {
+		
+		Date k = null;
+		Timestamp t = null;
+		ArticuloEnAlmacen articulo=new ArticuloEnAlmacen(id, k, t, 1);
+		if(daoAlmacen.borra(articulo) == true)
+			return true;
+		
+		return false;
+	}
+	
+	
+	/*
+	 * 
+	 * Prueba de DAOArticulo
+	 * 
+	 * 
+	 */
 	public Articulo buscaArticulo(String id) {
 		
 		return dao.recupera(id);
@@ -76,26 +124,56 @@ public class pruebas {
 		ficheroStream.read(contenido);
 		
 		DAOArticulo dao=new DAOArticuloBD();
+		DAOArticuloEnAlmacen daoAlmacen=new DAOArticuloEnAlmacenBD();
 		
-		pruebas p=new pruebas(dao);
+		pruebas p=new pruebas(dao, daoAlmacen);
 		
 		boolean respuesta;
 		
-		ArrayList<String> lista=new ArrayList<String>();
+		/*ArrayList<String> lista=new ArrayList<String>();
 		lista.add("M");
-		System.out.println(lista.get(0));
+		System.out.println(lista.get(0));*/
 		
 		/*System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
 		System.out.println("1");
 		respuesta=p.agregaArticulo("mapache", "mapachegordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
+		System.out.println("1");
+		respuesta=p.agregaArticulo("gato", "gatogordo", null, 7.0, 9.0, 9.8, 10);
+		System.out.println(respuesta);
+		System.out.println("1");
+		respuesta=p.agregaArticulo("perro", "perrogordo", null, 7.0, 9.0, 9.8, 10);
+		System.out.println(respuesta);*/
+		
 		
 		System.out.println("2");
 		Articulo articulo= dao.recupera("mapache");
-		System.out.println(articulo.getIdArticulo());
+		System.out.println(articulo.getIdArticulo() +"   "+articulo.getPrecioVenta());
+		System.out.println("2");
+		Articulo art= dao.recupera("gato");
+		System.out.println(art.getIdArticulo());
+		System.out.println("2");
+		Articulo alo= dao.recupera("perro");
+		System.out.println(alo.getIdArticulo());
 		
-		System.out.println("3");
-		respuesta=p.eliminaArticulo(id);
+		/*System.out.println("COMIENZA PRUEBA PARA DAOAlmacen");
+		System.out.println("1");
+		Date date = new Date(0);
+		//Caso 1: obtener la hora y salida por pantalla con formato:
+		DateFormat dateFormat = new SimpleDateFormat("dd-mm-yy");
+		dateFormat.format(date);
+		respuesta=p.agregaArticuloEnAlmacen("mapache", date, null, 5);
+		System.out.println(respuesta);
+		System.out.println("1");
+		respuesta=p.agregaArticuloEnAlmacen("gato", date, null, 5);
+		System.out.println(respuesta);
+		System.out.println("1");
+		respuesta=p.agregaArticuloEnAlmacen("perro", date, null, 5);
+		System.out.println(respuesta);*/
+		
+		
+		/*System.out.println("3");
+		respuesta=p.eliminaArticulo("mapache");
 		System.out.println(respuesta);*/
 		
 		

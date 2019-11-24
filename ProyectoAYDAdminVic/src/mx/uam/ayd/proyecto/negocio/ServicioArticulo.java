@@ -39,6 +39,16 @@ public interface ServicioArticulo {
 	public boolean eliminaArticulo(String id);
 	
 	/**
+	 * Permite actualizar un Articulo
+	 * 	
+	 * @param id
+	 * @return true si se actualizo correctamente, false si no
+	 */
+	/*public boolean actualizaArticulo(String id);*/
+	
+	
+	
+	/**
 	 * Permite actualizar un Articulo mientras exista ya un ArticuloEnAlmacen con el mismo id
 	 * 	
 	 * @param id

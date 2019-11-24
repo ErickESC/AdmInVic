@@ -135,10 +135,10 @@ public class VentanaPrincipal extends JFrame {
 		if (jButtonEliminarTitulo == null) {
 			jButtonEliminarTitulo = new JButton();
 			jButtonEliminarTitulo.setBounds(new Rectangle(240, 135, 166, 31));
-			jButtonEliminarTitulo.setText("Eliminar Titulo");
+			jButtonEliminarTitulo.setText("REZAGO");
 			jButtonEliminarTitulo.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					control.prubea();
+					control.Rezago();
 				}
 			});
 		}

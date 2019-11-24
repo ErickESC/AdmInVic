@@ -32,7 +32,7 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 					
 			// Ejecuta la instruccion
 			statement.execute("INSERT INTO ArticuloEnAlmacen VALUES ('" + articulo.getIdArticulo() + "','"+ articulo.getFechaLlegada() + "','" + articulo.getFechaPartida() + 
-					                                  "','" + articulo.getArticulosTotalesEnAlmacen() + "')",Statement.RETURN_GENERATED_KEYS);
+					                                  "'," + articulo.getArticulosTotalesEnAlmacen() + ")",Statement.RETURN_GENERATED_KEYS);
 			
 			ResultSet rs = statement.getGeneratedKeys(); // Recupera la llave
 			if (rs != null && rs.next()) {

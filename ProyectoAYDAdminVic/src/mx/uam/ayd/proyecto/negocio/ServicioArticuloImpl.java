@@ -25,9 +25,9 @@ public class ServicioArticuloImpl implements ServicioArticulo {
 	
 	public Articulo buscaArticulo(String id) {
 		
-		dao.recupera(id);
+		Articulo articulo=dao.recupera(id);
 		
-		return null;
+		return articulo;
 	}
 	
 	/**

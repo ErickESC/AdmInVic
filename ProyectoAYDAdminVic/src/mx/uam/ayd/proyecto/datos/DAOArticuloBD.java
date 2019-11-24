@@ -93,16 +93,18 @@ public class DAOArticuloBD implements DAOArticulo{
 				Statement statement = ManejadorBaseDatos.getConnection().createStatement();
 
 				// Recibe los resutados
-				ResultSet rs = statement.executeQuery("Update Articulo Set "
-						+ "                               descripcion ='" + articulo.getDescripcion() +
-						                              "', imagen='" + articulo.getImagen() +
-						                              "', precioVenta=" + articulo.getPrecioVenta() +
-						                              "', precioAdquisicion=" + articulo.getPrecioAdquisicion() +
-						                              "', precioMayoreo=" + articulo.getPrecioMayoreo() +
-						                              "', articulosTotal=" + articulo.getPrecioMayoreo() +
-						                              "' Where idArticulo='"+articulo.getIdArticulo()+"'");
-				
+				int rs = statement.executeUpdate("Update Articulo Set "
+						                            + "   descripcion ='" + articulo.getDescripcion() +
+						                              "', imagen=" + articulo.getImagen() +
+						                              ", precioVenta= " + articulo.getPrecioVenta() +
+						                              ", precioAdquisicion= " + articulo.getPrecioAdquisicion() +
+						                              ", precioMayoreo= " + articulo.getPrecioMayoreo() +
+						                              ", articulosTotal= "  + articulo.getPrecioMayoreo() +
+						                              " Where idArticulo='"+articulo.getIdArticulo()+"'");
+				if(rs==1)
 				return true;
+				else
+					return false;
 
 			}catch(SQLException e){
 				e.printStackTrace();

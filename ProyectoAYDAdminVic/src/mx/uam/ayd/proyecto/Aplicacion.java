@@ -1,7 +1,9 @@
 package mx.uam.ayd.proyecto;
 
 import mx.uam.ayd.proyecto.datos.DAOArticulo;
+import mx.uam.ayd.proyecto.datos.DAOArticuloBD;
 import mx.uam.ayd.proyecto.datos.DAOArticuloEnAlmacen;
+import mx.uam.ayd.proyecto.datos.DAOArticuloEnAlmacenBD;
 import mx.uam.ayd.proyecto.datos.DAOLibro;
 import mx.uam.ayd.proyecto.datos.DAOLibroBD;
 import mx.uam.ayd.proyecto.negocio.ServicioAlmacen;
@@ -17,7 +19,7 @@ import mx.uam.ayd.proyecto.presentacion.ControlRezago;
 
 /**
  * 
- * Clase principal que arranca la aplicacion
+ * Clase principal que arranca la aplicacion 
  * 
  * @author humbertocervantes
  *
@@ -57,6 +59,8 @@ public class Aplicacion {
 	private static void creaYConectaModulos() {
 		// Conecta los modulos
 		daoLibro = new DAOLibroBD();
+		daoarticulo=new DAOArticuloBD();
+		daoAlmacen=new DAOArticuloEnAlmacenBD();
 		servicioLibro = new ServicioLibroImpl(daoLibro);
 		controlAgregarLibro = new ControlAgregarLibro(servicioLibro);
 		

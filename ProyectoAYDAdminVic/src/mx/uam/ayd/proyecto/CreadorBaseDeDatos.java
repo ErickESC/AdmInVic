@@ -60,7 +60,7 @@ public class CreadorBaseDeDatos {
 	            	"precioMayoreo FLOAT, " +
 	            	"precioAdquisicion FLOAT, " +
 	    			"articulosTotal INTEGER)");
-            
+	        
 	        log.info("Creando tabla ArticuloEnAlmacen");                
 	    	
 	        statement.execute("CREATE TABLE ArticuloEnAlmacen(" +
