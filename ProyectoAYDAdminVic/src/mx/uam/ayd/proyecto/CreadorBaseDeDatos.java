@@ -90,6 +90,7 @@ public class CreadorBaseDeDatos {
 	        statement.execute("CREATE TABLE Venta(" +
 	        		"idVenta VARCHAR(11) NOT NULL,"+
 	        		"idArticulo VARCHAR(12) NOT NULL,"+
+	        		"cantidad INTEGER," +
 	            	"TotalVenta FLOAT, " +
 	            	"fechaVenta DATE, " +
 	    			"numeroCaja INTEGER, " +

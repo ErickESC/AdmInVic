@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import mx.uam.ayd.proyecto.datos.DAOArticulo;
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 
-public class ServicioArticuloImpl {
+public class ServicioArticuloImpl implements ServicioArticulo {
 	
 	/**
 	 * Recupera un Articulo a partir de su nombre

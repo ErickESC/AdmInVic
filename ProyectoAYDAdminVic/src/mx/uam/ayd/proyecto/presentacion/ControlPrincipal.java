@@ -13,11 +13,13 @@ public class ControlPrincipal {
 	
 	private ControlAgregarLibro controlAgregarLibro;
 	private ControlListarCatalogo controlListarCatalogo;
+	private ControlRezago controlRezago;
 		
 
-	public ControlPrincipal(ControlAgregarLibro controlAgregarLibro, ControlListarCatalogo controlListarCatalogo) {
+	public ControlPrincipal(ControlRezago controlRezago,ControlAgregarLibro controlAgregarLibro, ControlListarCatalogo controlListarCatalogo) {
 		this.controlAgregarLibro = controlAgregarLibro;
 		this.controlListarCatalogo = controlListarCatalogo;
+		this.controlRezago=controlRezago;
 	}
 	
 	/**
@@ -37,6 +39,12 @@ public class ControlPrincipal {
 	 */
 	public void agregarLibro() {
 		controlAgregarLibro.inicia();
+		
+	}
+	
+	public void prubea() {
+		
+		controlRezago.inicia();
 		
 	}
 

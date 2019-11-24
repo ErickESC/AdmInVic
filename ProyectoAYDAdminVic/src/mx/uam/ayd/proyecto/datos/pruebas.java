@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
@@ -80,8 +81,11 @@ public class pruebas {
 		
 		boolean respuesta;
 		
+		ArrayList<String> lista=new ArrayList<String>();
+		lista.add("M");
+		System.out.println(lista.get(0));
 		
-		System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
+		/*System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
 		System.out.println("1");
 		respuesta=p.agregaArticulo("mapache", "mapachegordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
@@ -92,7 +96,7 @@ public class pruebas {
 		
 		System.out.println("3");
 		respuesta=p.eliminaArticulo(id);
-		System.out.println(respuesta);
+		System.out.println(respuesta);*/
 		
 		
 		

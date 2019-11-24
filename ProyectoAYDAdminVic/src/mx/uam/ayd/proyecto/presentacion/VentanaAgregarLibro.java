@@ -31,10 +31,9 @@ public class VentanaAgregarLibro extends JFrame {
 
 	private JButton jButtonCancelar = null;
 
+	
 	private ControlAgregarLibro control = null;
-	/**
-	 * This is the default constructor
-	 */
+
 	public VentanaAgregarLibro(ControlAgregarLibro control) {
 		super();
 		initialize();
