@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - VentanaLogin",
+            "request": "launch",
+            "mainClass": "mx.uam.ayd.proyecto.presentacion.VentanaLogin",
+            "projectName": "ProyectoAYDAdminVic"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - VistaLogin",
+            "request": "launch",
+            "mainClass": "mx.uam.ayd.proyecto.presentacion.VistaLogin",
+            "projectName": "ProyectoAYDAdminVic"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Aplicacion",
             "request": "launch",
             "mainClass": "mx.uam.ayd.proyecto.Aplicacion",

@@ -13,13 +13,16 @@ public class ControlPrincipal {
 	
 	private ControlListarCatalogo controlListarCatalogo;
 	private ControlVenta controlVenta;
+	private ControlLogin controlLogin;
 		
 
 	public ControlPrincipal(
 		ControlAgregarLibro controlAgregarLibro,
 		ControlListarCatalogo controlListarCatalogo,
-		ControlVenta controlVenta
+		ControlVenta controlVenta,
+		ControlLogin controlLogin
 	) {
+		this.controlLogin = controlLogin;
 		this.controlListarCatalogo = controlListarCatalogo;
 		this.controlVenta = controlVenta;
 	}
@@ -39,8 +42,13 @@ public class ControlPrincipal {
 	/**
 	 * Arranca la historia de usuario de agregar libro
 	 */
-	public void agregarLibro() {
+	public void iniciarVenta() {
 		controlVenta.inicia();
+		
+	}
+
+	public void login() {
+		controlLogin.inicia();
 		
 	}
 

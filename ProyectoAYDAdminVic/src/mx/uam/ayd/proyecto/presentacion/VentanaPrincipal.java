@@ -61,6 +61,7 @@ public class VentanaPrincipal extends JFrame {
 	 */
 	private JPanel getJContentPane() {
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 		if (jContentPane == null) {
 			jLabel = new JLabel();
 			jLabel.setBounds(new Rectangle(132, 26, 231, 49));
@@ -69,9 +70,9 @@ public class VentanaPrincipal extends JFrame {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			jContentPane.add(jLabel, null);
-			jContentPane.add(getJButtonAgregarLibro(), null);
+			jContentPane.add(getJButtonAgregarVenta(), null);
 			jContentPane.add(getJButtonAgregarRevista(), null);
-			jContentPane.add(getJButtonBuscarTitulo(), null);
+			jContentPane.add(getJButtonLogin(), null);
 			jContentPane.add(getJButtonEliminarTitulo(), null);
 			jContentPane.add(getJButtonListarCatalogo(), null);
 			jContentPane.add(getJButtonSalir(), null);
@@ -84,15 +85,15 @@ public class VentanaPrincipal extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJButtonAgregarLibro() {
+	private JButton getJButtonAgregarVenta() {
 		if (jButtonAgregarLibro == null) {
 			jButtonAgregarLibro = new JButton();
 			jButtonAgregarLibro.setBounds(new Rectangle(30, 91, 180, 31));
 			jButtonAgregarLibro.setText("Registar Venta - H3");
 			jButtonAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// Invoca al control principal
-					control.agregarLibro();
+					// Invoca al control de venta
+					control.iniciarVenta();
 				}
 			});
 		}
@@ -109,6 +110,12 @@ public class VentanaPrincipal extends JFrame {
 			jButtonAgregarRevista = new JButton();
 			jButtonAgregarRevista.setBounds(new Rectangle(30, 135, 181, 30));
 			jButtonAgregarRevista.setText("Agregar Revista");
+			jButtonAgregarRevista.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					// Invoca al control principal
+					control.iniciarVenta();
+				}
+			});
 		}
 		return jButtonAgregarRevista;
 	}
@@ -118,11 +125,17 @@ public class VentanaPrincipal extends JFrame {
 	 * 	
 	 * @return javax.swing.JButton	
 	 */
-	private JButton getJButtonBuscarTitulo() {
+	private JButton getJButtonLogin() {
 		if (jButtonBuscarTitulo == null) {
 			jButtonBuscarTitulo = new JButton();
 			jButtonBuscarTitulo.setBounds(new Rectangle(240, 90, 166, 31));
-			jButtonBuscarTitulo.setText("Buscar Titulo");
+			jButtonBuscarTitulo.setText("Login");
+			jButtonBuscarTitulo.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					// Invoca al control principal
+					control.login();
+				}
+			});
 		}
 		return jButtonBuscarTitulo;
 	}

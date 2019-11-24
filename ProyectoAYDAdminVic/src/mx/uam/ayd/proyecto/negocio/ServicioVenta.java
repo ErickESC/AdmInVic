@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
+import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnStock;
 
 /**
  * ServicioVenta
@@ -13,4 +14,6 @@ public interface ServicioVenta {
 
     // TODO domini/Venta DAOVenta
     public boolean registraVenta();
+
+    public ArticuloEnStock consultarStock(String idArticulo);
 }
