@@ -4,6 +4,7 @@ import mx.uam.ayd.proyecto.datos.DAOArticulo;
 import mx.uam.ayd.proyecto.datos.DAOArticuloEnStock;
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnStock;
+import mx.uam.ayd.proyecto.negocio.dominio.Venta;
 
 /**
  * ServicioVentaImpl
@@ -25,22 +26,25 @@ public class ServicioVentaImpl implements ServicioVenta {
     }
 
     @Override
-    public boolean actualizaStockArticulo(String idArticulo) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean registraVenta() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
     public ArticuloEnStock consultarStock(String idArticulo) {
         ArticuloEnStock stock = daoArticuloEnStock.recupera(idArticulo);
-        System.out.println(stock.getIdArticulo() + " " + stock.getArticulosTotalesEnStock() + " " + stock.getFechaLlegada().toString() );
-        return null;
+        return stock;
+    }
+
+    @Override
+    public boolean registraVenta(Venta venta) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean actualizaStockArticulo(Articulo articulo, ArticuloEnStock articuloStock) {
+        if(daoArticuloEnStock.actualiza(articuloStock)) {
+            if(daoArticulo.actualiza(articulo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -240,10 +240,10 @@ public class VentanaVenta extends javax.swing.JFrame {
 
     private void registrarVentaActionPerformed(java.awt.event.ActionEvent evt) {
 		if(tabla.getRowCount() > 0) {
-			totalAPagar.setText(calculaTotalAPagar());
+            totalAPagar.setText(calculaTotalAPagar());
 			int respuesta = JOptionPane.showConfirmDialog(this, "Por favor confirma la Venta por: \n$"+totalAPagar.getText(),"Registrar Venta",JOptionPane.YES_NO_OPTION);
 			if (respuesta == JOptionPane.YES_OPTION) {
-				List<String> listaInsuficientes = control.registarVenta(listaDeIds);
+				List<String> listaInsuficientes = control.registarVenta();
 				boolean aprobar = listaInsuficientes.size() == 0;
 				if(aprobar){
 					System.out.println("La lista es valida :) "+listaInsuficientes.size());
@@ -251,8 +251,9 @@ public class VentanaVenta extends javax.swing.JFrame {
 					idArticuloSeleccionado.setText("");
 					for (int i = 0; i <  tabla.getRowCount(); i++) {
 						tabla.removeRow(i);
-					}
-					totalAPagar.setText(calculaTotalAPagar());
+                    }
+                    control.actualizaStock();
+                    totalAPagar.setText(calculaTotalAPagar());
 				} else {
 					JOptionPane.showMessageDialog(this, "No hay suficientes Articulos "+listaInsuficientes);
 				}
@@ -268,8 +269,10 @@ public class VentanaVenta extends javax.swing.JFrame {
     }
 
     private void eliminaArticuloDeLista(java.awt.event.ActionEvent evt) {
-		if(listaDeArticulos.getSelectedRow() > -1 ) {
-			tabla.removeRow(listaDeArticulos.getSelectedRow());
+        int index = listaDeArticulos.getSelectedRow();
+		if(index > -1 ) {
+            control.eliminarDeLista(tabla.getValueAt(index, 0).toString());
+			tabla.removeRow(index);
 		}
     }
 
@@ -278,19 +281,17 @@ public class VentanaVenta extends javax.swing.JFrame {
 	}
 	
 	private String calculaTotalAPagar() {
-		float aPagar = 0f;
 		for (int i = 0; i < tabla.getRowCount(); i++) {
 			int cantidad = Integer.valueOf(tabla.getValueAt(i, 2).toString());
-			float precio = Float.valueOf(tabla.getValueAt(i, 3).toString());
-			aPagar += precio*cantidad;
+            control.actualizaCantidad(tabla.getValueAt(i, 0).toString(), cantidad);
 			Map<String,Integer> elemento = new HashMap<String,Integer>();
 			elemento.put(
 				tabla.getValueAt(i, 0).toString(),
 				Integer.valueOf(tabla.getValueAt(i, 2).toString())
 			);
 			listaDeIds.add(elemento);
-		}
-		return String.valueOf(aPagar);
+        }
+		return String.valueOf(control.totalApagar());
 	}
 
 	public void abre () {

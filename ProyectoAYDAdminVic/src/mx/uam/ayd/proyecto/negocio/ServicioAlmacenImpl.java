@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import mx.uam.ayd.proyecto.datos.DAOArticuloEnAlmacen;
-import mx.uam.ayd.proyecto.datos.DAOLibro;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 
 /**

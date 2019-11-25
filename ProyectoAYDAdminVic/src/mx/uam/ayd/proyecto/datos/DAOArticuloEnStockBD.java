@@ -97,14 +97,16 @@ public class DAOArticuloEnStockBD implements DAOArticuloEnStock {
 	 */
 	@Override
 	public boolean actualiza(ArticuloEnStock articulo) {
+		
 	       try{
-				// Recibe los resutados
-				statement.executeQuery("Update ArticuloEnStock Set"
-					+ " fechaLlegada ='" + articulo.getFechaLlegada()
-					+ "', articulosTotalesEnStock=" + articulo.getArticulosTotalesEnStock() 
-					+ "' Where idArticulo='"+articulo.getIdArticulo()+"'"
-				);
-				return true;
+			   boolean exito = false;
+			   String sql = "UPDATE ArticuloEnStock SET articulosTotalesEnStock = ? WHERE idArticulo = ?";
+			   java.sql.PreparedStatement ps = ManejadorBaseDatos.getConnection(nombreBD).prepareStatement(sql);
+			   ps.setInt(1, articulo.getArticulosTotalesEnStock());
+			   ps.setString(2, articulo.getIdArticulo());
+			   exito = ps.executeUpdate() == 1;
+			   ps.close(); 
+			   return exito;
 			}catch(SQLException e){
 				e.printStackTrace();
 				return false;

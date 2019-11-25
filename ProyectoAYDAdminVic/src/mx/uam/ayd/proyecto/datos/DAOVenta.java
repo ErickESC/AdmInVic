@@ -8,4 +8,5 @@ import mx.uam.ayd.proyecto.negocio.dominio.Venta;
 public interface DAOVenta {
 
     public boolean crea(Venta venta);
+    
 }

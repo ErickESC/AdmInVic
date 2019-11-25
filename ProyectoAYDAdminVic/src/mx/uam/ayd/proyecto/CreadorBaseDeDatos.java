@@ -90,7 +90,8 @@ public class CreadorBaseDeDatos {
 				"TotalVenta FLOAT, " +
 				"fechaVenta DATE, " +
 				"numeroCaja INTEGER, " +
-				"PRIMARY KEY(idVenta, idArticulo) )");
+				"PRIMARY KEY(idVenta, idArticulo), CONSTRAINT Fk_Venta " +
+				"FOREIGN KEY (idArticulo) REFERENCES Articulo(idArticulo))");
 
 			// Creando un Usario
 			log.info("creando (Usaurio): 1 ADMIN con password 123");
