@@ -164,6 +164,7 @@ public class DAOArticuloEnAlmacenBD implements DAOArticuloEnAlmacen {
 
 	@Override
 	public ArrayList<ArticuloEnAlmacen> recuperaLapso(Date max, Date min) {
+	
 		
 		ArrayList <ArticuloEnAlmacen> articulos = new ArrayList<ArticuloEnAlmacen>();
 		

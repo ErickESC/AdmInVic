@@ -71,7 +71,7 @@ public class ServicioArticuloImpl implements ServicioArticulo {
 	 */
 	public boolean realizaDescuentos(String id, String descripcion , byte[] imagen,double PV ,double PM, double PA,int articulosTotales){
 		
-		Articulo articulo=new Articulo(id,  descripcion ,  imagen, PV , PM,  PA, articulosTotales);
+		Articulo articulo=new Articulo(id,  descripcion ,  imagen, PV , PM,  PA, articulosTotales+1);
 		return dao.actualiza(articulo);
 
 	}

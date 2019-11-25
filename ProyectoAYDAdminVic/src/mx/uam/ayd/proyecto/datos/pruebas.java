@@ -169,7 +169,7 @@ public class pruebas {
 		lista.add("M");
 		System.out.println(lista.get(0));*/
 		
-		System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
+		/*System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
 		System.out.println("1");
 		respuesta=p.agregaArticulo("leon", "leongordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
@@ -178,7 +178,7 @@ public class pruebas {
 		System.out.println(respuesta);
 		System.out.println("1");
 		respuesta=p.agregaArticulo("oso", "osogordo", null, 7.0, 9.0, 9.8, 10);
-		System.out.println(respuesta);
+		System.out.println(respuesta);*/
 		
 		
 		/*System.out.println("2");
@@ -191,22 +191,22 @@ public class pruebas {
 		Articulo alo= dao.recupera("perro");
 		System.out.println(alo.getIdArticulo());*/
 		
-		System.out.println("COMIENZA PRUEBA PARA DAOAlmacen");
-		System.out.println("1");
+		/*System.out.println("COMIENZA PRUEBA PARA DAOAlmacen");
+		System.out.println("1");*/
 		
 		//Caso 1: obtener la hora y salida por pantalla con formato:
-		int x=2019;
+		
 		java.sql.Date date=new  java.sql.Date(119,11,06);
 		java.sql.Date date1=new  java.sql.Date(119,11,01);
 		java.sql.Timestamp time=new java.sql.Timestamp(2019, 11, 05, 03, 01, 01, 00);
-		respuesta=p.agregaArticuloEnAlmacen("leon", date, time, 5);
+		/*respuesta=p.agregaArticuloEnAlmacen("leon", date, time, 5);
 		System.out.println(respuesta);
 		System.out.println("1");
 		respuesta=p.agregaArticuloEnAlmacen("lobo", date, time, 5);
 		System.out.println(respuesta);
 		System.out.println("1");
 		respuesta=p.agregaArticuloEnAlmacen("oso", date, time, 5);
-		System.out.println(respuesta);
+		System.out.println(respuesta);*/
 		
 		
 		/*System.out.println("3");
@@ -220,7 +220,7 @@ public class pruebas {
 		for(int k=0;k<articulos.size();k++) {
 			
 			System.out.println(articulos.get(k).getIdArticulo());
-			//System.out.println(articulos.get(k).getFechaLlegada());
+			System.out.println(articulos.get(k).getFechaLlegada());
 			
 			
 			

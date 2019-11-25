@@ -4,6 +4,7 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import java.sql.Date;
+
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -15,7 +16,6 @@ import com.sun.javafx.collections.MappingChange.Map;
 
 import mx.uam.ayd.proyecto.datos.DAOArticulo;
 import mx.uam.ayd.proyecto.datos.DAOArticuloEnAlmacen;
-import mx.uam.ayd.proyecto.datos.DAOLibro;
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 
@@ -124,11 +124,7 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	public java.util.Map<Articulo, String> consultaRezago(Date max, Date min) {
 		
 		
-		double precioDescuento;
-		
 		ArrayList<ArticuloEnAlmacen> lapso=daoAlmacen.recuperaLapso(max, min);
-		
-		System.out.println(lapso.get(0).getIdArticulo());
 		
 		ArrayList<Articulo> articulos=new ArrayList<Articulo>();
 		java.util.Map <Articulo, String> descuento=new HashMap <Articulo, String>();
@@ -139,7 +135,7 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 		for(int i=0; i<lapso.size();i++) {
 			
 			articulos.add(daoArticulo.recupera(lapso.get(i).getIdArticulo()));
-			System.out.println(articulos.get(i).getIdArticulo());
+			
 		}
 		
 		
@@ -148,32 +144,32 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 			LocalDate hoy = LocalDate.now();
 			hoy.getMonthValue();
 			int desc=hoy.getMonthValue()-lapso.get(i).getFechaLlegada().getMonth();
-			int anio=-hoy.getDayOfMonth()+lapso.get(i).getFechaLlegada().getYear();
-			System.out.println(desc);
-			System.out.println(anio);
+			int anio=hoy.getYear()-lapso.get(i).getFechaLlegada().getYear();
 			
 			/*
 			 * Logica de negocio que obedece la regla NO-6
 			 */
 			
-			if((anio==0 && desc<5) || (anio==1 && -5>desc)) {		
+			if(desc<5) {		
 				
 				if(desc<0) { desc=desc+(-1); }//considerando si checas en enero y registraste algo en diciembre
 				double porcentaje=desc*0.05;
+				
 				double precio=articulos.get(i).getPrecioVenta();
 				double precioDesc = precio-(precio*porcentaje);
 			    String descuentoHecho=Double.toString(precioDesc);
+			    
 				descuento.put(articulos.get(i), descuentoHecho);
 				
 				
-			}
+			}else {
 			
 			double porcentaje=0.4;
 			double precio=articulos.get(i).getPrecioVenta();
 			double precioDesc = precio-(precio*porcentaje);
 		    String descuentoHecho=Double.toString(precioDesc);
 			descuento.put(articulos.get(i), descuentoHecho);
-					
+			}	
 		}
 		
 		

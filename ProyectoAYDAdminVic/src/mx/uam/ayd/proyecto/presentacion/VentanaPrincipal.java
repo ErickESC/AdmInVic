@@ -91,7 +91,7 @@ public class VentanaPrincipal extends JFrame {
 			jButtonAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Invoca al control principal
-					control.agregarLibro();
+					//control.agregarLibro();
 				}
 			});
 		}
@@ -159,7 +159,7 @@ public class VentanaPrincipal extends JFrame {
 			jButtonListarCatalogo.setText("Listar catalogo");
 			jButtonListarCatalogo.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					control.listarCatalogo();
+					//control.listarCatalogo();
 				}
 			});
 		}

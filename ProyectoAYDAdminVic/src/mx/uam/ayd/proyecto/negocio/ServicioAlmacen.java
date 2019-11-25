@@ -4,13 +4,13 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import java.sql.Date;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 
 import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
-import mx.uam.ayd.proyecto.negocio.dominio.Libro;
 
 /**
  * Modulo con la logica de negocio de Rezago
