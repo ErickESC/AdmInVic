@@ -16,7 +16,8 @@ import mx.uam.ayd.proyecto.negocio.dominio.Venta;
  */
 public class ServicioHistorialImpl implements ServicioHistorial{
     private DAOVenta daoVenta;
-	
+
+        
 	public ServicioHistorialImpl(DAOVenta dao) {
 		// Creamos conexion al DAO
 		this.daoVenta = dao;
@@ -96,9 +97,9 @@ public class ServicioHistorialImpl implements ServicioHistorial{
 	@Override
 	public ArrayList<Venta> dameVentas() {
 		
-		System.out.print("hola");
+		ArrayList<Venta> ventas = daoVenta.recuperaTodos();
 		
-		return null;
+		return ventas;
 	}
 
 	/**
