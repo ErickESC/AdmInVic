@@ -4,6 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/derby.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="/home/erick/Downloads/mail.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/home/erick/Downloads/jcalendar/lib/junit-4.6.jar"/>
 	<classpathentry kind="lib" path="/home/erick/Downloads/jcalendar/lib/jgoodies-looks-2.4.1.jar"/>
