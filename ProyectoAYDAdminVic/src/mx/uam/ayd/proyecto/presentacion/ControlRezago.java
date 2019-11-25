@@ -47,14 +47,24 @@ public class ControlRezago extends javax.swing.JFrame {
 		this.servicioArticulo=servicioArticulo;
 	}
 	
-	
+	/*
+	 * 
+	 * inicia la ventana
+	 * 
+	 */
 	
 	public void inicia() {
 		// Aquí inicia el caso de uso
-		// 2. El sistema muestra la ventana de agregar libro
+		// El sistema muestra la ventana de Rezago
 		ventana = new VistaRezago(this);
 		ventana.setVisible(true);
 	}
+	
+	/*
+	 * 
+	 * genera la lista de rezagados
+	 * 
+	 */
 	
 	public void generaListaRezago(Date max, Date min, JTable tabla){
 		
@@ -97,21 +107,11 @@ public class ControlRezago extends javax.swing.JFrame {
 		
 	}
 	
-	/*public void generaPrueba( JTable tabla) {
-		
-		modelo.addColumn("ID");
-		modelo.addColumn("DESCRIP");
-		modelo.addColumn("CANT");
-		modelo.addColumn("F.REG");
-		modelo.addColumn("P.VENTA");
-		modelo.addColumn("DESC(%)");
-		modelo.addColumn("P.DESC");
-		
-		modelo.addRow(new Object[] {"M","A","P","A","C","H","E"});
-		
-		tabla.setModel(modelo);
-		
-	}*/
+	/*
+	 * 
+	 * genera los descuentos
+	 * 
+	 */
 	
 	public void GeneraDescuentos() {
 		 
@@ -151,7 +151,11 @@ public class ControlRezago extends javax.swing.JFrame {
 		listadescuento.clear();
 	}
 	
-	
+	/*
+	 * 
+	 * agrega de a lista el objeto selecionado
+	 * 
+	 */
 	
 	public void agregaALista(String id, String precio) {
 		
@@ -173,6 +177,12 @@ public class ControlRezago extends javax.swing.JFrame {
 		
 		
 	}
+	
+	/*
+	 * 
+	 * elimina de la lista el objeto selecionado
+	 * 
+	 */
 	
 	public void eliminaDeLista(String id, String precio) {
 		

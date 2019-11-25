@@ -17,6 +17,9 @@ public class ServicioArticuloImpl implements ServicioArticulo {
 	 */
 	private DAOArticulo dao;
 	
+	ArrayList<String> lista =new ArrayList<String>();
+	ArrayList<Double> listadescuento =new ArrayList<Double>(); 
+	
 	public ServicioArticuloImpl(DAOArticulo dao) {
 		
 		this.dao=dao;

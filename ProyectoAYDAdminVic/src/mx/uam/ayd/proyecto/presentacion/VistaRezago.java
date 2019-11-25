@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 /**
  *
- * @author David
+ * @author Erick
  */
 public class VistaRezago extends javax.swing.JFrame {
     
@@ -48,7 +48,7 @@ public class VistaRezago extends javax.swing.JFrame {
     	super();
     	this.control=control;
     	initComponents();
-        //t.visualizar_ProductoVO(tabla);
+        
     }
     
     @SuppressWarnings("unchecked")

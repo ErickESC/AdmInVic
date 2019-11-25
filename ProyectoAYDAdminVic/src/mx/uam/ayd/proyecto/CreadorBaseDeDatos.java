@@ -47,7 +47,7 @@ public class CreadorBaseDeDatos {
 	
 	        statement.execute("CREATE TABLE usuario(" +
 	        		"matricula INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"+
-	            	"contraseña VARCHAR(20), " +
+	            	"contrasenia VARCHAR(20), " +
 	    			"cargo VARCHAR(12))");
 	        
 	        log.info("Creando tabla Articulo");                
