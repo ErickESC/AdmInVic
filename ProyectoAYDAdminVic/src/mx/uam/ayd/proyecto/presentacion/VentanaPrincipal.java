@@ -122,6 +122,12 @@ public class VentanaPrincipal extends JFrame {
 			jButtonBuscarTitulo = new JButton();
 			jButtonBuscarTitulo.setBounds(new Rectangle(240, 90, 166, 31));
 			jButtonBuscarTitulo.setText("Enviar Lista");
+			jButtonEliminarTitulo.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					control.enviaLista();
+				}
+			});
+			
 		}
 		return jButtonBuscarTitulo;
 	}

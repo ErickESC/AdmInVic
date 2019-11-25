@@ -9,6 +9,8 @@ import mx.uam.ayd.proyecto.negocio.ServicioAlmacen;
 import mx.uam.ayd.proyecto.negocio.ServicioAlmacenImpl;
 import mx.uam.ayd.proyecto.negocio.ServicioArticulo;
 import mx.uam.ayd.proyecto.negocio.ServicioArticuloImpl;
+import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
+import mx.uam.ayd.proyecto.presentacion.ControlEnviarProductoAResurtir;
 import mx.uam.ayd.proyecto.presentacion.ControlPrincipal;
 import mx.uam.ayd.proyecto.presentacion.ControlRezago;
 
@@ -28,6 +30,10 @@ public class Aplicacion {
 	private static ServicioArticulo servicioarticulo;
 	private static DAOArticuloEnAlmacen daoAlmacen;
 	private static ServicioAlmacen servicioAlmacen;
+	private static ServicioUsuario servicioUsuario;
+	private static ControlEnviarProductoAResurtir controlResurtir;
+	
+	
 	
 	
 	
@@ -57,7 +63,9 @@ public class Aplicacion {
 		servicioAlmacen=new ServicioAlmacenImpl(daoAlmacen, daoarticulo);
 		
 		controlrezago=new ControlRezago( servicioAlmacen, servicioarticulo);
-		controlPrincipal = new ControlPrincipal( controlrezago);
+		controlPrincipal = new ControlPrincipal( controlrezago,controlResurtir);
+		
+		controlResurtir=new ControlEnviarProductoAResurtir(servicioUsuario,servicioAlmacen);
 
 	}
 	

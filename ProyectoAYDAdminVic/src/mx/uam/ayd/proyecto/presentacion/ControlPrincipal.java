@@ -12,10 +12,12 @@ public class ControlPrincipal {
 	private VentanaPrincipal ventana;
 	
 	private ControlRezago controlRezago;
+	private ControlEnviarProductoAResurtir controlResurtir;
 		
 
-	public ControlPrincipal(ControlRezago controlRezago) {
+	public ControlPrincipal(ControlRezago controlRezag, ControlEnviarProductoAResurtir controlResurtir) {
 		this.controlRezago=controlRezago;
+		this.controlResurtir=controlResurtir;
 	}
 	
 	/**
@@ -37,6 +39,12 @@ public class ControlPrincipal {
 	public void Rezago() {
 		
 		controlRezago.inicia();
+		
+	}
+	
+	public void enviaLista() {
+		
+		controlResurtir.inicia();
 		
 	}
 
