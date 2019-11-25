@@ -33,8 +33,6 @@ public class VentanaPrincipal extends JFrame {
 	private JButton jButtonSalir = null;
 	
 	private ControlPrincipal control;
-
-	
 	
 	/**
 	 * This is the default constructor
