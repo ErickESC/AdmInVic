@@ -34,6 +34,8 @@ public class VentanaPrincipal extends JFrame {
 	
 	private ControlPrincipal control;
 
+	
+	
 	/**
 	 * This is the default constructor
 	 */
