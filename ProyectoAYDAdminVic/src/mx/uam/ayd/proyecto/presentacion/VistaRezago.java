@@ -141,8 +141,12 @@ public class VistaRezago extends javax.swing.JFrame {
             	java.sql.Date max;
             	java.sql.Date min;
             	
-				max= new java.sql.Date(fecha_inicial.getDate().getYear(), fecha_inicial.getDate().getMonth(), fecha_inicial.getDate().getDay());
-				min=new java.sql.Date(fecha_final.getDate().getYear(), fecha_final.getDate().getMonth(), fecha_final.getDate().getDay());
+				min= new java.sql.Date(fecha_inicial.getDate().getYear(), fecha_inicial.getDate().getMonth(), fecha_inicial.getDate().getDate());
+				max=new java.sql.Date(fecha_final.getDate().getYear(), fecha_final.getDate().getMonth(), fecha_final.getDate().getDate());
+				System.out.println(fecha_inicial.getDate());
+				System.out.println(fecha_final.getDate());
+				System.out.println(min);
+				System.out.println(max);
 				
 	            control.generaListaRezago(max, min, tabla);
         		

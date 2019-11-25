@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 
+import mx.uam.ayd.proyecto.negocio.dominio.Articulo;
 import mx.uam.ayd.proyecto.negocio.dominio.ArticuloEnAlmacen;
 import mx.uam.ayd.proyecto.negocio.dominio.Libro;
 
@@ -61,9 +62,9 @@ public interface ServicioAlmacen {
 	 * Permite recuperar los ArticuloEnAlmacen registrados dentro de un lapso
 	 * @return 
 	 * 
-	 * @return arreglo con ArticuloEnAlmacen
+	 * @return arreglo con Articulo
 	 */
-	public  Map <ArticuloEnAlmacen, String> consultaRezago(Date max, Date min);
+	public  Map <Articulo, String> consultaRezago(Date max, Date min);
 	
 	
 	

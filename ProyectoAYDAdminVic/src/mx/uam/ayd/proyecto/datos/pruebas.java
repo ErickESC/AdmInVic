@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -18,6 +21,38 @@ public class pruebas {
 	
 	private DAOArticulo dao;
 	private DAOArticuloEnAlmacen daoAlmacen;
+	
+	public ArrayList<ArticuloEnAlmacen> recuperaLapso(Date max, Date min) {
+		
+		ArrayList <ArticuloEnAlmacen> articulos = new ArrayList<ArticuloEnAlmacen>();
+		
+		try{
+			
+			
+			
+			Statement statement = ManejadorBaseDatos.getConnection().createStatement();
+
+			// Recibe los resutados
+			ResultSet rs = statement.executeQuery("SELECT * FROM ArticuloEnAlmacen "
+                    + "WHERE  (fechaRegistro <= '"+ max
+                    + "' AND fechaRegistro >='"+ min
+                    + "') AND articulosTotalesEnAlmacen > 0");
+					                            
+
+			
+			while(rs.next())
+			{
+				
+				ArticuloEnAlmacen articulo = new ArticuloEnAlmacen(rs.getString(1), rs.getDate(2), rs.getTimestamp(3), rs.getInt(4));
+				articulos.add(articulo);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		
+		return articulos;
+	}
 	
 	public pruebas(DAOArticulo dao,DAOArticuloEnAlmacen daoAlmacen) {
 		// Creamos conexion al DAO
@@ -134,19 +169,19 @@ public class pruebas {
 		lista.add("M");
 		System.out.println(lista.get(0));*/
 		
-		/*System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
+		System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
 		System.out.println("1");
-		respuesta=p.agregaArticulo("mapache", "mapachegordo", null, 7.0, 9.0, 9.8, 10);
+		respuesta=p.agregaArticulo("leon", "leongordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticulo("gato", "gatogordo", null, 7.0, 9.0, 9.8, 10);
+		respuesta=p.agregaArticulo("lobo", "lobogordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticulo("perro", "perrogordo", null, 7.0, 9.0, 9.8, 10);
-		System.out.println(respuesta);*/
+		respuesta=p.agregaArticulo("oso", "osogordo", null, 7.0, 9.0, 9.8, 10);
+		System.out.println(respuesta);
 		
 		
-		System.out.println("2");
+		/*System.out.println("2");
 		Articulo articulo= dao.recupera("mapache");
 		System.out.println(articulo.getIdArticulo() +"   "+articulo.getPrecioVenta());
 		System.out.println("2");
@@ -154,28 +189,42 @@ public class pruebas {
 		System.out.println(art.getIdArticulo());
 		System.out.println("2");
 		Articulo alo= dao.recupera("perro");
-		System.out.println(alo.getIdArticulo());
+		System.out.println(alo.getIdArticulo());*/
 		
-		/*System.out.println("COMIENZA PRUEBA PARA DAOAlmacen");
+		System.out.println("COMIENZA PRUEBA PARA DAOAlmacen");
 		System.out.println("1");
-		Date date = new Date(0);
+		
 		//Caso 1: obtener la hora y salida por pantalla con formato:
-		DateFormat dateFormat = new SimpleDateFormat("dd-mm-yy");
-		dateFormat.format(date);
-		respuesta=p.agregaArticuloEnAlmacen("mapache", date, null, 5);
+		int x=2019;
+		java.sql.Date date=new  java.sql.Date(119,11,06);
+		java.sql.Date date1=new  java.sql.Date(119,11,01);
+		java.sql.Timestamp time=new java.sql.Timestamp(2019, 11, 05, 03, 01, 01, 00);
+		respuesta=p.agregaArticuloEnAlmacen("leon", date, time, 5);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticuloEnAlmacen("gato", date, null, 5);
+		respuesta=p.agregaArticuloEnAlmacen("lobo", date, time, 5);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticuloEnAlmacen("perro", date, null, 5);
-		System.out.println(respuesta);*/
+		respuesta=p.agregaArticuloEnAlmacen("oso", date, time, 5);
+		System.out.println(respuesta);
 		
 		
 		/*System.out.println("3");
 		respuesta=p.eliminaArticulo("mapache");
 		System.out.println(respuesta);*/
+		System.out.println(date);
+		//System.out.println(x);
 		
+		ArrayList <ArticuloEnAlmacen> articulos = new ArrayList<ArticuloEnAlmacen>();
+		articulos=p.recuperaLapso(date, date1);
+		for(int k=0;k<articulos.size();k++) {
+			
+			System.out.println(articulos.get(k).getIdArticulo());
+			//System.out.println(articulos.get(k).getFechaLlegada());
+			
+			
+			
+		}
 		
 		
 		

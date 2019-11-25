@@ -58,9 +58,12 @@ public class ControlRezago extends javax.swing.JFrame {
 	
 	public void generaListaRezago(Date max, Date min, JTable tabla){
 		
-		java.util.Map <ArticuloEnAlmacen, String> rezagados=new HashMap <ArticuloEnAlmacen, String>();
 		
-		rezagados=(Map<ArticuloEnAlmacen, String>) servicioAlmacen.consultaRezago(max, min);
+		java.util.Map <Articulo, String> rezagados=new HashMap <Articulo, String>();
+		
+		
+		rezagados=(Map<Articulo, String>) servicioAlmacen.consultaRezago(max, min);
+	
 		
 		if(rezagados.isEmpty()) {
 			
@@ -82,11 +85,11 @@ public class ControlRezago extends javax.swing.JFrame {
 		
 		while(it.hasNext()) {
 			
-			ArticuloEnAlmacen key = (ArticuloEnAlmacen) it.next();
-			Articulo art=(Articulo) servicioArticulo.buscaArticulo(key.getIdArticulo());
-			double desc=(Double.parseDouble(rezagados.get(key))*100)/art.getPrecioVenta();
-			modelo.addRow(new Object[] {art.getIdArticulo(),art.getDescripcion(),
-					                    key.getFechaLlegada(),art.getPrecioVenta(),
+			Articulo key = (Articulo) it.next();
+			ArticuloEnAlmacen art=(ArticuloEnAlmacen) servicioAlmacen.buscaArticuloEnAlmacen(key.getIdArticulo());
+			double desc=(100-Double.parseDouble(rezagados.get(key))*100)/key.getPrecioVenta();
+			modelo.addRow(new Object[] {key.getIdArticulo(),key.getDescripcion(),key.getArticulosTotal(),
+					                    art.getFechaLlegada(),key.getPrecioVenta(),
 					                    desc,rezagados.get(key)});	
 		}
 		
@@ -111,8 +114,6 @@ public class ControlRezago extends javax.swing.JFrame {
 	}*/
 	
 	public void GeneraDescuentos() {
-		
-		System.out.println("tacos");
 		 
 		boolean respuesta;
 		
@@ -123,20 +124,17 @@ public class ControlRezago extends javax.swing.JFrame {
 			
 		}
 		
-		System.out.println("tacoprevios for");
-		
 		for(int j=0;j<lista.size();j++) {
 			
-			System.out.println("taco en for");
+			
 			
 			Articulo articulo=servicioArticulo.buscaArticulo(lista.get(j));
 			
-			System.out.println("taco en for 1 " +articulo.getIdArticulo());
+			
 			
 			respuesta=servicioArticulo.realizaDescuentos(articulo.getIdArticulo(),articulo.getDescripcion(),articulo.getImagen(),
                     									 listadescuento.get(j), articulo.getPrecioMayoreo(),articulo.getPrecioAdquisicion(),
                     									 articulo.getArticulosTotal());
-			System.out.println("taco en for 2");
 			
 			if(respuesta==false) {
 				  
@@ -145,9 +143,9 @@ public class ControlRezago extends javax.swing.JFrame {
 				    
 			  }
 			
-			System.out.println("taco en for 3");
+			
 		}
-		System.out.println("taco en for 4");
+		
 		ventana.muestraMensaje("Descuentos aplicados con exito");
 		lista.clear();
 		listadescuento.clear();

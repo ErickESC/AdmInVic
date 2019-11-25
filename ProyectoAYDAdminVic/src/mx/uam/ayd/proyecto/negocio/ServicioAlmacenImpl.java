@@ -5,6 +5,8 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -119,29 +121,36 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 	 * @return arreglo con ArticuloEnAlmacen
 	 */
 	@Override
-	public java.util.Map<ArticuloEnAlmacen, String> consultaRezago(Date max, Date min) {
+	public java.util.Map<Articulo, String> consultaRezago(Date max, Date min) {
+		
 		
 		double precioDescuento;
+		
 		ArrayList<ArticuloEnAlmacen> lapso=daoAlmacen.recuperaLapso(max, min);
-		ArrayList<Articulo> articulos=null;
-		java.util.Map <ArticuloEnAlmacen, String> descuento=new HashMap <ArticuloEnAlmacen, String>();
-		Calendar fecha= Calendar.getInstance();
+		
+		System.out.println(lapso.get(0).getIdArticulo());
+		
+		ArrayList<Articulo> articulos=new ArrayList<Articulo>();
+		java.util.Map <Articulo, String> descuento=new HashMap <Articulo, String>();
+		
 		
 		//Llamamos a DAOArticulo para conocer los precios de los articulos requeridos
 		//Llenamos un arreglo de articulos para poder realizar la logica de negocio
 		for(int i=0; i<lapso.size();i++) {
 			
-			articulos.set(i, daoArticulo.recupera(lapso.get(i).getIdArticulo()));
-			
+			articulos.add(daoArticulo.recupera(lapso.get(i).getIdArticulo()));
+			System.out.println(articulos.get(i).getIdArticulo());
 		}
 		
 		
-		for(int i=0; i<lapso.size();i++) {
-			
-			fecha.setTime(lapso.get(i).getFechaLlegada());
+		for(int i=0; i<articulos.size();i++) {
 				
-			int desc=Calendar.MONTH-fecha.MONTH;
-			int anio=Calendar.YEAR-fecha.YEAR;
+			LocalDate hoy = LocalDate.now();
+			hoy.getMonthValue();
+			int desc=hoy.getMonthValue()-lapso.get(i).getFechaLlegada().getMonth();
+			int anio=-hoy.getDayOfMonth()+lapso.get(i).getFechaLlegada().getYear();
+			System.out.println(desc);
+			System.out.println(anio);
 			
 			/*
 			 * Logica de negocio que obedece la regla NO-6
@@ -154,16 +163,16 @@ public class ServicioAlmacenImpl implements ServicioAlmacen {
 				double precio=articulos.get(i).getPrecioVenta();
 				double precioDesc = precio-(precio*porcentaje);
 			    String descuentoHecho=Double.toString(precioDesc);
-				descuento.put(lapso.get(i), descuentoHecho);
+				descuento.put(articulos.get(i), descuentoHecho);
 				
 				
 			}
 			
-			double porcentaje=desc*0.4;
+			double porcentaje=0.4;
 			double precio=articulos.get(i).getPrecioVenta();
 			double precioDesc = precio-(precio*porcentaje);
 		    String descuentoHecho=Double.toString(precioDesc);
-			descuento.put(lapso.get(i), descuentoHecho);
+			descuento.put(articulos.get(i), descuentoHecho);
 					
 		}
 		

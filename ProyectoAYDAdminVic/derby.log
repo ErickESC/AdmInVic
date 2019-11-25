@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-2019-11-24 22:16:26.040 GMT:
- Booting Derby version The Apache Software Foundation - Apache Derby - 10.1.2.1 - (330608): instance c013800d-016e-9f7c-ca29-000006e22cf8
+2019-11-25 02:17:03.184 GMT:
+ Booting Derby version The Apache Software Foundation - Apache Derby - 10.1.2.1 - (330608): instance c013800d-016e-a059-1541-000005860430
 on database directory /home/erick/git/repository/ProyectoAYDAdminVic/BasePrueba 
 
 Database Class Loader started - derby.database.classpath=''
