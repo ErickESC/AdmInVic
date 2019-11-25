@@ -9,4 +9,6 @@ public interface DAOVenta {
 
     public boolean crea(Venta venta);
     
+    public Venta recupera(String idVenta);
+    
 }

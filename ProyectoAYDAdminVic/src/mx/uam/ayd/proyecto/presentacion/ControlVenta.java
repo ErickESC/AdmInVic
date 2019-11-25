@@ -60,6 +60,7 @@ public class ControlVenta {
             System.out.println("Articulo: "+articulo.getArticulosTotales()+" Stock:"+articuloStock.getArticulosTotalesEnStock());
             if(servicioVenta.actualizaStockArticulo(articulo, articuloStock)) {
                 System.out.println("Stock actualizado");
+                servicioVenta.registraVenta(listaDeVenta);
             }
         });
         return false;

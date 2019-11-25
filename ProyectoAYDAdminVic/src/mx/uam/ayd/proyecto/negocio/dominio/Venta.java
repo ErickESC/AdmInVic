@@ -1,5 +1,7 @@
 package mx.uam.ayd.proyecto.negocio.dominio;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -13,9 +15,10 @@ public class Venta {
     private java.sql.Date fechaVenta;
     private int numeroCaja;
 
-    public Venta () {}
-    
-    public Venta (int numeroCaja) {
+    public Venta() {
+    }
+
+    public Venta(int numeroCaja) {
         this.idVenta = java.time.LocalDateTime.now().toString();
         this.articulosEnLista = new java.util.ArrayList<ArticuloEnVenta>();
         this.totalVenta = 0;
@@ -64,21 +67,19 @@ public class Venta {
     }
 
     public java.util.List<String> getIds() {
-        return articulosEnLista.stream().map( e -> e.getArticulo().getIdArticulo() )
-        .collect(Collectors.toList());
+        return articulosEnLista.stream().map(e -> e.getArticulo().getIdArticulo()).collect(Collectors.toList());
     }
 
-    public float getCostoTotal () {
-        float costo = this.articulosEnLista.stream()
-            .map( e -> e.totalAPagar() )
-            .reduce(0f, (c, e) -> c + e);
+    public float getCostoTotal() {
+        float costo = this.articulosEnLista.stream().map(e -> e.totalAPagar()).reduce(0f, (c, e) -> c + e);
         return costo;
     }
 
     public void agregarArticulo(Articulo articulo) {
-        int coincidencias = (int) articulosEnLista.stream().filter( e -> e.getArticulo().getIdArticulo().equals(articulo.getIdArticulo())).count();
-        if(coincidencias > 0){
-            articulosEnLista = articulosEnLista.stream().map( e -> {
+        int coincidencias = (int) articulosEnLista.stream()
+                .filter(e -> e.getArticulo().getIdArticulo().equals(articulo.getIdArticulo())).count();
+        if (coincidencias > 0) {
+            articulosEnLista = articulosEnLista.stream().map(e -> {
                 boolean existe = e.getArticulo().getIdArticulo().equals(articulo.getIdArticulo());
                 if (existe) {
                     e.sumarArticulo();
@@ -91,19 +92,17 @@ public class Venta {
     }
 
     public void eliminarArticulo(String idArticulo) {
-        articulosEnLista = articulosEnLista.stream()
-            .filter( e -> e.getArticulo().getIdArticulo().equals(idArticulo))
-            .collect(Collectors.toList());
+        articulosEnLista = articulosEnLista.stream().filter(e -> e.getArticulo().getIdArticulo().equals(idArticulo))
+                .collect(Collectors.toList());
     }
 
     public void actualizaCantidadArticulo(String idArticulo, int cantidad) {
-        articulosEnLista = articulosEnLista.stream()
-            .map( e -> {
-                if(e.getArticulo().getIdArticulo().equals(idArticulo)) {
-                    e.setCantidad(cantidad);
-                }
-                return e;
-            }).collect(Collectors.toList());
+        articulosEnLista = articulosEnLista.stream().map(e -> {
+            if (e.getArticulo().getIdArticulo().equals(idArticulo)) {
+                e.setCantidad(cantidad);
+            }
+            return e;
+        }).collect(Collectors.toList());
     }
     
 }

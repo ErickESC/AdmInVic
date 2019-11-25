@@ -9,6 +9,8 @@ import mx.uam.ayd.proyecto.datos.DAOLibro;
 import mx.uam.ayd.proyecto.datos.DAOLibroBD;
 import mx.uam.ayd.proyecto.datos.DAOUsuario;
 import mx.uam.ayd.proyecto.datos.DAOUsuarioBD;
+import mx.uam.ayd.proyecto.datos.DAOVenta;
+import mx.uam.ayd.proyecto.datos.DAOVentaBD;
 import mx.uam.ayd.proyecto.negocio.ServicioLibro;
 import mx.uam.ayd.proyecto.negocio.ServicioLibroImpl;
 import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
@@ -31,9 +33,8 @@ import mx.uam.ayd.proyecto.presentacion.ControlVenta;
 public class Aplicacion {
 	
 	// Modulos de la aplicacion
-	private static DAOLibro daoLibro;
 	private static DAOArticulo daoArticulo;
-	private static ServicioLibro servicioLibro;
+	private static DAOVenta daoVenta;
 	private static ServicioVenta servicioVenta;
 	private static DAOArticuloEnStock daoArticuloEnStock;
 	private static ControlAgregarLibro controlAgregarLibro;
@@ -62,16 +63,13 @@ public class Aplicacion {
 	 */
 	private static void creaYConectaModulos() {
 		// Conecta los modulos
-		daoLibro = new DAOLibroBD();
 		daoArticulo = new DAOArticuloBD(ConfiguracionBD.PRODUCCION);
 		daoArticuloEnStock = new DAOArticuloEnStockBD(ConfiguracionBD.PRODUCCION);
 		daoUsuario = new DAOUsuarioBD(ConfiguracionBD.PRODUCCION);
-
-		servicioLibro = new ServicioLibroImpl(daoLibro);
-		servicioVenta = new ServicioVentaImpl(daoArticulo, daoArticuloEnStock);
+		daoVenta = new DAOVentaBD(ConfiguracionBD.PRODUCCION);
+		
+		servicioVenta = new ServicioVentaImpl(daoArticulo, daoArticuloEnStock, daoVenta);
 		servicioUsuario = new ServicioUsuarioImpl(daoUsuario);
-		controlAgregarLibro = new ControlAgregarLibro(servicioLibro);
-		controlListarCatalogo = new ControlListarCatalogo(servicioLibro);
 		controlVenta = new ControlVenta(servicioVenta);
 		controlLogin = new ControlLogin(servicioUsuario);
 		
