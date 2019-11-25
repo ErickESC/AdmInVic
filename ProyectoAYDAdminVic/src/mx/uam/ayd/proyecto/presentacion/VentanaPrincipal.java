@@ -87,7 +87,7 @@ public class VentanaPrincipal extends JFrame {
 		if (jButtonAgregarLibro == null) {
 			jButtonAgregarLibro = new JButton();
 			jButtonAgregarLibro.setBounds(new Rectangle(30, 91, 180, 31));
-			jButtonAgregarLibro.setText("Agregar Libro");
+			jButtonAgregarLibro.setText("Generar venta");
 			jButtonAgregarLibro.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Invoca al control principal
@@ -107,7 +107,7 @@ public class VentanaPrincipal extends JFrame {
 		if (jButtonAgregarRevista == null) {
 			jButtonAgregarRevista = new JButton();
 			jButtonAgregarRevista.setBounds(new Rectangle(30, 135, 181, 30));
-			jButtonAgregarRevista.setText("Agregar Revista");
+			jButtonAgregarRevista.setText("Historial");
 		}
 		return jButtonAgregarRevista;
 	}
@@ -121,7 +121,7 @@ public class VentanaPrincipal extends JFrame {
 		if (jButtonBuscarTitulo == null) {
 			jButtonBuscarTitulo = new JButton();
 			jButtonBuscarTitulo.setBounds(new Rectangle(240, 90, 166, 31));
-			jButtonBuscarTitulo.setText("Buscar Titulo");
+			jButtonBuscarTitulo.setText("Enviar Lista");
 		}
 		return jButtonBuscarTitulo;
 	}
@@ -156,7 +156,7 @@ public class VentanaPrincipal extends JFrame {
 		if (jButtonListarCatalogo == null) {
 			jButtonListarCatalogo = new JButton();
 			jButtonListarCatalogo.setBounds(new Rectangle(30, 180, 181, 30));
-			jButtonListarCatalogo.setText("Listar catalogo");
+			jButtonListarCatalogo.setText("Modifcar");
 			jButtonListarCatalogo.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					//control.listarCatalogo();
