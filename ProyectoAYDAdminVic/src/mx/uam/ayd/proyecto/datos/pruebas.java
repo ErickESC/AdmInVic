@@ -153,10 +153,10 @@ public class pruebas {
 		id= "mapache";
 		descripcion="mapachegordo";
 	
-		java.io.File fichero = new java.io.File("/home/erick/Desktop/mapache.txt");
+		/*java.io.File fichero = new java.io.File("/home/erick/Desktop/mapache.txt");
 		FileInputStream ficheroStream = new FileInputStream(fichero);
 		byte contenido[] = new byte[(int)fichero.length()];
-		ficheroStream.read(contenido);
+		ficheroStream.read(contenido);*/
 		
 		DAOArticulo dao=new DAOArticuloBD();
 		DAOArticuloEnAlmacen daoAlmacen=new DAOArticuloEnAlmacenBD();
@@ -169,16 +169,16 @@ public class pruebas {
 		lista.add("M");
 		System.out.println(lista.get(0));*/
 		
-		/*System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
+	System.out.println("COMIENZA PRUEBA PARA DAOARTICULO");
 		System.out.println("1");
-		respuesta=p.agregaArticulo("leon", "leongordo", null, 7.0, 9.0, 9.8, 10);
+		respuesta=p.agregaArticulo("GOR01R1021245", "leongordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticulo("lobo", "lobogordo", null, 7.0, 9.0, 9.8, 10);
+		respuesta=p.agregaArticulo("CUB45A1021745", "lobogordo", null, 7.0, 9.0, 9.8, 10);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticulo("oso", "osogordo", null, 7.0, 9.0, 9.8, 10);
-		System.out.println(respuesta);*/
+		respuesta=p.agregaArticulo("CUB21R1781215", "osogordo", null, 7.0, 9.0, 9.8, 10);
+		System.out.println(respuesta);
 		
 		
 		/*System.out.println("2");
@@ -196,17 +196,17 @@ public class pruebas {
 		
 		//Caso 1: obtener la hora y salida por pantalla con formato:
 		
-		java.sql.Date date=new  java.sql.Date(119,11,06);
-		java.sql.Date date1=new  java.sql.Date(119,11,01);
+		java.sql.Date date=new  java.sql.Date(119,01,05);
+		java.sql.Date date1=new  java.sql.Date(119,01,05);
 		java.sql.Timestamp time=new java.sql.Timestamp(2019, 11, 05, 03, 01, 01, 00);
-		/*respuesta=p.agregaArticuloEnAlmacen("leon", date, time, 5);
+		respuesta=p.agregaArticuloEnAlmacen("GOR01R1021245", date, time, 5);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticuloEnAlmacen("lobo", date, time, 5);
+		respuesta=p.agregaArticuloEnAlmacen("CUB45A1021745", date, time, 5);
 		System.out.println(respuesta);
 		System.out.println("1");
-		respuesta=p.agregaArticuloEnAlmacen("oso", date, time, 5);
-		System.out.println(respuesta);*/
+		respuesta=p.agregaArticuloEnAlmacen("CUB21R1781215", date, time, 5);
+		System.out.println(respuesta);
 		
 		
 		/*System.out.println("3");
