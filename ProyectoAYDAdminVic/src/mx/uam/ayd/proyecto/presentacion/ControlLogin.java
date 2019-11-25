@@ -27,7 +27,6 @@ public class ControlLogin {
     public boolean login(String nombre, String password) {
         boolean res = false;
         Usuario usuario = recuperaUsuario(nombre);
-        System.out.println(usuario.getContrasenia());
         if(usuario != null){
             res = usuario.getContrasenia().equals(password);
         }

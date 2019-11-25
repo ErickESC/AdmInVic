@@ -1,7 +1,6 @@
 package mx.uam.ayd.proyecto.datos;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import mx.uam.ayd.proyecto.negocio.dominio.Usuario;
 
@@ -11,45 +10,62 @@ import mx.uam.ayd.proyecto.negocio.dominio.Usuario;
 public class DAOUsuarioBD implements DAOUsuario {
 
     private String nombreBD;
-    private Statement statement = null;
     private java.sql.PreparedStatement ps;
-    
-    public DAOUsuarioBD (String baseDeDatos ) {
-		nombreBD = baseDeDatos;
-		try {
-			statement = ManejadorBaseDatos.getConnection(nombreBD).createStatement();
-		} catch (DatabaseException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-	}
+
+    public DAOUsuarioBD(String baseDeDatos) {
+        nombreBD = baseDeDatos;
+    }
 
     @Override
     public boolean crea(Usuario usuario) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean exito = false;
+        try {
+            ps = ManejadorBaseDatos.getConnection(nombreBD).prepareStatement("INSERT INTO Usuario (contrasenia, cargo) VALUES (?, ?)",
+                    java.sql.Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, usuario.getContrasenia());
+            ps.setString(2, usuario.getCargo());
+            ps.executeUpdate();
+            java.sql.ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                System.out.println("La nueva Matricula es => " + keys.getInt(1));
+                exito = true;
+            }
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exito;
     }
 
     @Override
     public boolean elimina(Usuario usuario) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean exito = false;
+        try {
+            ps = ManejadorBaseDatos.getConnection(nombreBD).prepareStatement("DELETE FROM Usuario WHERE matricula = ?");
+            ps.setInt(1, usuario.getMatricula());
+            exito = ps.executeUpdate() == 1;
+            ps.close();
+            System.out.println("Exito al Eliminar "+exito);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exito;
     }
 
     @Override
     public Usuario recupera(String nombre) {
         Usuario usuario = null;
         try {
-            java.sql.ResultSet rs = statement.executeQuery("SELECT * FROM Usuario WHERE matricula = " + nombre);
-            if (rs.next()) {
-                int matricula = rs.getInt("matricula");
-                String contrasenia = rs.getString("contrasenia");
-                String cargo = rs.getString("cargo");
+            ps = ManejadorBaseDatos.getConnection(nombreBD).prepareStatement("SELECT * FROM Usuario WHERE matricula = ?");
+            ps.setString(1, nombre);
+            java.sql.ResultSet res = ps.executeQuery();
+            if(res.next()){
+                int matricula = res.getInt("matricula");
+                String contrasenia = res.getString("contrasenia");
+                String cargo = res.getString("cargo");
                 usuario = new Usuario(matricula, contrasenia, cargo);
             }
+            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,7 +74,17 @@ public class DAOUsuarioBD implements DAOUsuario {
 
     @Override
     public boolean actualiza(Usuario usuarioActualizado) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean exito = false;
+        try {
+            ps = ManejadorBaseDatos.getConnection(nombreBD).prepareStatement("UPDATE Usuario SET contrasenia = ?, cargo = ? WHERE matricula = ?");
+            ps.setString(1, usuarioActualizado.getContrasenia());
+            ps.setString(2, usuarioActualizado.getCargo());
+            ps.setInt(3, usuarioActualizado.getMatricula());
+            exito = ps.executeUpdate() == 1;
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exito;
     }
 }

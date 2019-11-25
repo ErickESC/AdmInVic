@@ -98,7 +98,7 @@ public class CreadorBaseDeDatos {
 			
 			// Creando un Articulo
 			log.info("creando (Articulo): abc001");
-			ps = connection.prepareStatement("INSERT INTO Articulo VALUES (?, ?, null, ?, ?, ?, ?)");
+			ps = connection.prepareStatement("INSERT INTO Articulo VALUES (?, ?, null, ?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, "abc001");
 			ps.setString(2, "Producto 1");
 			ps.setFloat(3, 15);
@@ -106,6 +106,9 @@ public class CreadorBaseDeDatos {
 			ps.setFloat(5, 7.5f);
 			ps.setInt(6, 10);
 			ps.executeUpdate();
+			java.sql.ResultSet keys = ps.getGeneratedKeys();
+			keys.next();
+			System.out.println("Matricula => "+keys.getInt(1));
 			ps.close();
 
 			// Creando un Articulo en Almacen
